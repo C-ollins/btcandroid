@@ -29,7 +29,7 @@ class NavigationTabsAdapter(val context: Context, var activeTab: Int, var device
     init {
         tabs.add(NavigationTab(R.string.overview, R.drawable.ic_overview, R.drawable.ic_overview_inactive))
         tabs.add(NavigationTab(R.string.transactions, R.drawable.ic_transactions, R.drawable.ic_transactions_inactive))
-        tabs.add(NavigationTab(R.string.wallets, R.drawable.ic_wallet, R.drawable.ic_wallet02))
+        tabs.add(NavigationTab(R.string.accounts, R.drawable.ic_wallet, R.drawable.ic_wallet02))
         tabs.add(NavigationTab(R.string.more, R.drawable.ic_menu, R.drawable.ic_menu_inactive))
     }
 
@@ -53,11 +53,7 @@ class NavigationTabsAdapter(val context: Context, var activeTab: Int, var device
             holder.icon.setImageResource(tabs[position].inactiveIcon)
         }
 
-        if (position == 2 && backupsNeeded > 0) { // Wallets Page
-            holder.backupIcon.show()
-        } else {
-            holder.backupIcon.hide()
-        }
+        holder.backupIcon.hide()
 
         holder.itemView.setOnClickListener {
             val oldActiveTab = activeTab

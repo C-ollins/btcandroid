@@ -71,7 +71,7 @@ class AccountPickerAdapter(val items: Array<Any>, val context: Context, val curr
             holder.itemView.account_row_total_balance.text = CoinFormat.format(item.balance.total)
 
             holder.itemView.account_row_spendable_balance.text = context.getString(R.string.btc_amount,
-                    CoinFormat.formatDecred(item.balance.spendable))
+                    CoinFormat.formatBitcoin(item.balance.spendable))
 
             holder.itemView.setOnClickListener {
                 accountSelected(item)

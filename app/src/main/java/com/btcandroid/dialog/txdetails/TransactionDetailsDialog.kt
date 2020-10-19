@@ -72,7 +72,7 @@ class TransactionDetailsDialog(val transaction: Transaction) : FullScreenBottomS
         tx_details_id.setOnClickListener(this)
         tx_details_id.text = transaction.hash
         tx_details_type.text = transaction.type
-        tx_details_fee.text = getString(R.string.x_btc, CoinFormat.formatDecred(transaction.fee))
+        tx_details_fee.text = getString(R.string.x_btc, CoinFormat.formatBitcoin(transaction.fee))
 
         when (transaction.type) {
             Btclibwallet.TxTypeRegular -> {
@@ -193,7 +193,7 @@ class TransactionDetailsDialog(val transaction: Transaction) : FullScreenBottomS
     private fun populateInputOutput() {
         val inputs = ArrayList<DropDownItem>()
         for (input in transaction.inputs!!) {
-            val amount = getString(R.string.tx_details_account, CoinFormat.formatDecred(input.amount), input.accountName)
+            val amount = getString(R.string.tx_details_account, CoinFormat.formatBitcoin(input.amount), input.accountName)
             var inputBadge = ""
             if (input.accountNumber != null && input.accountNumber != -1) {
                 inputBadge = wallet.name
@@ -205,7 +205,7 @@ class TransactionDetailsDialog(val transaction: Transaction) : FullScreenBottomS
 
         val outputs = ArrayList<DropDownItem>()
         for (output in transaction.outputs!!) {
-            val amount = getString(R.string.tx_details_account, CoinFormat.formatDecred(output.amount), output.accountName)
+            val amount = getString(R.string.tx_details_account, CoinFormat.formatBitcoin(output.amount), output.accountName)
             var outputBadge = ""
             if (output.account != -1) {
                 outputBadge = wallet.name

@@ -72,15 +72,15 @@ object CoinFormat {
     }
 
     fun format(amount: Double, relativeSize: Float = 0.7f, suffix: String = " BTC"): Spannable {
-        return format(formatDecred(amount) + suffix, relativeSize)
+        return format(formatBitcoin(amount) + suffix, relativeSize)
     }
 
-    fun formatDecred(dcr: Double, pattern: String = btcWithCommasAndZeros) = formatDecred(Btclibwallet.amountAtom(dcr), pattern)
+    fun formatBitcoin(dcr: Double, pattern: String = btcWithCommasAndZeros) = formatBitcoin(Btclibwallet.amountAtom(dcr), pattern)
 
-    fun formatDecred(dcr: Long, pattern: String = btcWithoutCommas): String {
-        val convertedDcr = Btclibwallet.amountCoin(dcr)
+    fun formatBitcoin(btc: Long, pattern: String = btcWithoutCommas): String {
+        val convertedBtc = Btclibwallet.amountCoin(btc)
         val df = NumberFormat.getNumberInstance(Locale.ENGLISH) as DecimalFormat
         df.applyPattern(pattern)
-        return df.format(convertedDcr)
+        return df.format(convertedBtc)
     }
 }

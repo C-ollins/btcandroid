@@ -376,13 +376,13 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
         val totalCostAtom = amountAtom + feeAtom
         val balance = selectedAccount.balance.spendable - totalCostAtom
         val balanceAfterSend = if (balance > 0) {
-            getString(R.string.x_btc, CoinFormat.formatDecred(balance))
+            getString(R.string.x_btc, CoinFormat.formatBitcoin(balance))
         } else {
             getString(R.string.x_btc, "0")
         }
 
-        val feeString = CoinFormat.formatDecred(feeAtom)
-        val totalCostString = CoinFormat.formatDecred(totalCostAtom)
+        val feeString = CoinFormat.formatBitcoin(feeAtom)
+        val totalCostString = CoinFormat.formatBitcoin(totalCostAtom)
 
         val feeSpanned: Spanned
         val totalCostSpanned: Spanned

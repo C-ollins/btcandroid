@@ -11,6 +11,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.btcandroid.R
 import com.btcandroid.activities.BaseActivity
+import com.btcandroid.activities.security.SignMessage
 import com.btcandroid.activities.security.ValidateAddress
 import com.btcandroid.activities.security.VerifyMessage
 import com.btcandroid.dialog.InfoDialog
@@ -37,6 +38,7 @@ class SecurityTools : BaseActivity() {
         }
 
         val items = arrayOf(
+                ListItem(R.string.sign_message, R.drawable.ic_security, Intent(this, SignMessage::class.java)),
                 ListItem(R.string.verify_message, R.drawable.ic_verify_message, Intent(this, VerifyMessage::class.java)),
                 ListItem(R.string.validate_addresses, R.drawable.ic_location_pin, Intent(this, ValidateAddress::class.java))
         )

@@ -20,18 +20,12 @@ import com.btcandroid.extensions.walletAccounts
 import com.btcandroid.util.CoinFormat
 import com.btcandroid.util.SnackBar
 import com.btcandroid.util.WalletData
-import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.account_row.view.*
 
 class AccountsAdapter(private val context: Context, private val walletID: Long) : RecyclerView.Adapter<AccountsAdapter.AccountsViewHolder>() {
 
-    private val accounts: ArrayList<Account>
-    private val wallet: Wallet
-
-    init {
-        wallet = WalletData.multiWallet!!.walletWithID(walletID)
-        accounts = wallet.walletAccounts()
-    }
+    private val wallet = WalletData.multiWallet!!.walletWithID(walletID)
+    private val accounts: ArrayList<Account> =  wallet.walletAccounts()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -74,11 +68,19 @@ class AccountsAdapter(private val context: Context, private val walletID: Long) 
                 holder.icon.setImageResource(R.drawable.ic_accounts)
             }
 
+            val containerBackground = when (position) {
+                0 -> {
+                    R.drawable.curved_top_ripple
+                }
+                else -> R.drawable.ripple
+            }
+            holder.itemView.setBackgroundResource(containerBackground)
+
             holder.accountName.text = account.accountName
             holder.accountName.isSelected = true
             holder.totalBalance.text = CoinFormat.format(account.totalBalance)
             holder.spendableBalance.text = context.getString(R.string.btc_amount,
-                    CoinFormat.formatDecred(account.balance.spendable))
+                    CoinFormat.formatBitcoin(account.balance.spendable))
 
             holder.itemView.setOnClickListener {
                 AccountDetailsDialog(context, walletID, account) { newName ->
@@ -95,11 +97,7 @@ class AccountsAdapter(private val context: Context, private val walletID: Long) 
             }
         } else {
 
-            val background = when {
-                wallet.encryptedSeed == null -> R.drawable.curved_bottom_ripple
-                else -> R.drawable.ripple
-            }
-            holder.itemView.setBackgroundResource(background)
+            holder.itemView.setBackgroundResource(R.drawable.curved_bottom_ripple)
 
             holder.itemView.setOnClickListener {
                 val activity = context as AppCompatActivity

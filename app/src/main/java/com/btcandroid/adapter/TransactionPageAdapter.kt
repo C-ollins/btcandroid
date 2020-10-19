@@ -103,7 +103,7 @@ class TransactionPageAdapter(val context: Context, walletID: Long, val transacti
             } else {
                 transaction.amount
             }
-            val strAmount = CoinFormat.formatDecred(txAmount)
+            val strAmount = CoinFormat.formatBitcoin(txAmount)
 
             holder.amount.apply {
                 text = CoinFormat.format(strAmount + Constants.NBSP + layoutInflater.context.getString(R.string.btc), 0.7f)

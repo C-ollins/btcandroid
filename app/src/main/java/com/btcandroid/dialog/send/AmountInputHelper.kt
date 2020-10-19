@@ -49,7 +49,7 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
     var selectedAccount: Account? = null
         set(value) {
             layout.spendable_balance.text = context.getString(R.string.spendable_bal_format,
-                    CoinFormat.formatDecred(value!!.balance.spendable))
+                    CoinFormat.formatBitcoin(value!!.balance.spendable))
             field = value
         }
 
@@ -198,7 +198,7 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
 
             if (currencyIsDCR) {
                 val dcr = Btclibwallet.amountAtom(coin)
-                val amountString = CoinFormat.formatDecred(dcr, CoinFormat.btcWithoutCommas)
+                val amountString = CoinFormat.formatBitcoin(dcr, CoinFormat.btcWithoutCommas)
                 layout.send_amount.setText(CoinFormat.format(amountString, AmountRelativeSize))
             } else {
                 val usd = usdAmount!!.setScale(2, BigDecimal.ROUND_HALF_EVEN).toPlainString()

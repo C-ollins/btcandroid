@@ -59,7 +59,7 @@ class ConfirmTransaction(private val fragmentActivity: FragmentActivity, val sen
         send_from_account_name.text = HtmlCompat.fromHtml(getString(R.string.send_from_account,
                 selectedAccount.accountName, wallet.name), 0)
 
-        val dcrAmount = CoinFormat.formatDecred(Btclibwallet.amountAtom(transactionData.btcAmount.toDouble()))
+        val dcrAmount = CoinFormat.formatBitcoin(Btclibwallet.amountAtom(transactionData.btcAmount.toDouble()))
         val amountStr = if (transactionData.exchangeDecimal != null) {
             val usdAmount = dcrToFormattedUSD(transactionData.exchangeDecimal, transactionData.btcAmount.toDouble(), 2)
             HtmlCompat.fromHtml(getString(R.string.x_btc_usd, dcrAmount, usdAmount), 0)
