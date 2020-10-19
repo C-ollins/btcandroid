@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_padding_size_8"
-                android:background="@drawable/blue_ripple_corners_8dp"
+                android:background="@drawable/orange_ripple_corners_8dp"
                 android:clickable="true"
                 android:elevation="@dimen/shadow_spread"
                 android:focusable="true"

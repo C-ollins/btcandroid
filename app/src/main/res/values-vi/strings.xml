@@ -137,10 +137,10 @@
     <!--Error Messages-->
     <string name="not_enough_funds">Không đủ tiền.</string>
     <string name="empty_seed">Seed rỗng</string>
-    <string name="not_connected">Không kết nối với mạng Decred</string>
+    <string name="not_connected">Không kết nối với mạng Bitcoin</string>
     <string name="passphrase_required">Mật khẩu riêng là bắt buộc</string>
     <string name="wallet_not_loaded">Ví không được tải</string>
-    <string name="err_no_peers">Mạng decred bị hủy là không thể truy cập do thiếu các peer.</string>
+    <string name="err_no_peers">Mạng bitcoin bị hủy là không thể truy cập do thiếu các peer.</string>
     <string name="not_enough_funds_synced">Không đủ tiền (hoặc không được kết nối).</string>
     <!--/Error Messages-->
 

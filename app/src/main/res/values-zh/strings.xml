@@ -33,7 +33,6 @@
     <string name="testnet">测试网</string>
     <string name="general">通用</string>
     <string name="view_on_blockchain">在blockchain查看</string>
-    <string name="https_docs_decred_org" translatable="false">https://docs.decred.org</string>
     <string name="default_account">默认账户</string>
     <string name="exit_cap">退出</string>
     <string name="delete">删除</string>
@@ -210,11 +209,11 @@
     <!--Error Messages-->
     <string name="not_enough_funds">没有足够金额</string>
     <string name="empty_seed">空助记词</string>
-    <string name="not_connected">不能连接到Decred网络</string>
+    <string name="not_connected">不能连接到Bitcoin网络</string>
     <string name="watch_only_wallet_error">钱包只能查看</string>
     <string name="passphrase_required">请提供隐私密码</string>
     <string name="wallet_not_loaded">钱包未加载</string>
-    <string name="err_no_peers">Decred网络因缺少节点而无法连接</string>
+    <string name="err_no_peers">Bitcoin网络因缺少节点而无法连接</string>
     <string name="not_enough_funds_synced">没有足够金额（或者未连接）</string>
     <string name="error_occurred">发生错误</string>
     <!--/Error Messages-->
@@ -291,7 +290,7 @@
     <string name="tx_details_account">%1$s BTC (%2$s)</string>
 
     <!--Landing page-->
-    <string name="welcome_android_title">欢迎使用\nDecred Android 钱包</string>
+    <string name="welcome_android_title">欢迎使用\Bitcoin Android 钱包</string>
     <!--Landing page-->
 
     <!--Time-->
@@ -388,7 +387,6 @@
     <string name="purchased">已购买</string>
     <string name="receive_btc">接收BTC</string>
     <string name="selected_account_name">%1$s (%2$s)</string>
-    <string name="decred_qr_address_prefix">decred:%1$s</string>
     <string name="got_it">了解</string>
     <string name="tap_to_copy">(点击复制)</string>
     <string name="cancel_sync_create_wallet">创建钱包前请断开连接</string>
@@ -460,7 +458,7 @@
     <string name="clear_all">清除所有</string>
     <string name="verify_message">验证消息</string>
     <string name="invalid_base64_string">不是BASE64字符串</string>
-    <string name="help_description">获取更多信息，请浏览Decred文档。</string>
+    <string name="help_description">获取更多信息，请浏览Bitcoin文档。</string>
     <string name="see_documentations">查看文档</string>
     <string name="exchange_rate_fetch_error">交易汇率未获取</string>
     <string name="retry">重试</string>
@@ -525,9 +523,9 @@
     <string name="migrating_wallet">迁移钱包</string>
     <string name="add_new_wallet">添加新钱包</string>
     <string name="wait_for_sync">等待同步完成</string>
-    <string name="welcome_title">欢迎使用Decred钱包</string>
+    <string name="welcome_title">欢迎使用Bitcoin钱包</string>
     <string name="first_run_notice">你的33个助记词短语是你的钱包，请保持它安全。在你的设备丢失或破坏的情况下没有它你的资金将不能恢复\n\n首次钱包同步将比平常耗费更多时间。</string>
-    <string name="welcome_screen_text">欢迎使用Decred钱包，一个安全 &amp; 开源的移动钱包</string>
+    <string name="welcome_screen_text">欢迎使用Bitcoin钱包，一个安全 &amp; 开源的移动钱包</string>
     <string name="mywallet">我的钱包</string>
     <string name="today">今天</string>
     <string name="yesterday">昨天</string>
@@ -540,6 +538,6 @@
     <string name="disconnect_delete_wallet">在删除钱包前请断开或取消同步</string>
     <string name="seed_backup_success_msg">确保保存你的助记词短语在安全的位置。</string>
     <string name="seed_backup_verified">你的助记词短语是正确的</string>
-    <string name="rebroadcast_tx_success">将未完成的交易重新在Decred网络广播</string>
+    <string name="rebroadcast_tx_success">将未完成的交易重新在Bitcoin网络广播</string>
 
 </resources>

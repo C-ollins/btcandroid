@@ -305,7 +305,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/stats_wallet_data_directory"
-                        tools:text="/data/user/0/com.decred.dcrandroid.mainnet/files/wallet/mainnet3/wallet.db"
+                        tools:text="/data/user/0/com.btcandroid.mainnet/files/wallet/mainnet/wallet.db"
                         android:layout_marginTop="@dimen/margin_padding_size_4"
                         android:fontFamily="@font/source_sans_pro"
                         android:textColor="@color/blueGraySecondTextColor"

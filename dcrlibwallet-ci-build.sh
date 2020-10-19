@@ -25,11 +25,11 @@ if !(hash gomobile 2>/dev/null); then
 fi
 
 go version
-echo "Building dcrlibwallet"
-export DcrandroidDir=$(pwd)
-mkdir -p $GOPATH/src/github.com/planetdecred
-git clone https://github.com/planetdecred/dcrlibwallet $GOPATH/src/github.com/planetdecred/dcrlibwallet
-cd $GOPATH/src/github.com/planetdecred/dcrlibwallet
+echo "Building btclibwallet"
+export BtcandroidDir=$(pwd)
+mkdir -p $GOPATH/src/github.com/c-ollins
+git clone https://github.com/c-ollins/btclibwallet $GOPATH/src/github.com/c-ollins/btclibwallet
+cd $GOPATH/src/github.com/c-ollins/btclibwallet
 export GO111MODULE=on && go mod vendor && export GO111MODULE=off
 gomobile bind -target=android/386
-cp dcrlibwallet.aar $DcrandroidDir/app/libs/dcrlibwallet.aar && cd $DcrandroidDir
+cp btclibwallet.aar $BtcandroidDir/app/libs/btclibwallet.aar && cd $BtcandroidDir

@@ -210,11 +210,11 @@
     <!--Error Messages-->
     <string name="not_enough_funds">Fonds insuffisants.</string>
     <string name="empty_seed">Phrase de récupération vide</string>
-    <string name="not_connected">Pas de connexion au réseau Decred</string>
+    <string name="not_connected">Pas de connexion au réseau Bitcoin</string>
     <string name="watch_only_wallet_error">Le seul porte-monnaie est en lecture seule</string>
     <string name="passphrase_required">La phrase secrète est requise</string>
     <string name="wallet_not_loaded">Le porte-monnaie n\'est pas chargé</string>
-    <string name="err_no_peers">Le réseau Decred est injoignable à cause d\'un manque de pairs.</string>
+    <string name="err_no_peers">Le réseau Bitcoin est injoignable à cause d\'un manque de pairs.</string>
     <string name="not_enough_funds_synced">Pas assez de fonds (ou pas connecté).</string>
     <string name="error_occurred">Une erreur s\'est produite</string>
     <!--/Error Messages-->
@@ -291,7 +291,7 @@
     <string name="tx_details_account">%1$s BTC (%2$s)</string>
 
     <!--Landing page-->
-    <string name="welcome_android_title">Bienvenue dans\nle porte-monnaie Android Decred</string>
+    <string name="welcome_android_title">Bienvenue dans\nle porte-monnaie Android Bitcoin</string>
     <!--Landing page-->
 
     <!--Time-->
@@ -388,7 +388,6 @@
     <string name="purchased">Acheté</string>
     <string name="receive_btc">Recevoir BTC</string>
     <string name="selected_account_name">%1$s (%2$s)</string>
-    <string name="decred_qr_address_prefix">decred:%1$s</string>
     <string name="got_it">Compris</string>
     <string name="tap_to_copy">(Sélectionner pour copier)</string>
     <string name="cancel_sync_create_wallet">Impossible de créer un porte-monnaie lorsque la synchronisation est en cours</string>
@@ -460,7 +459,7 @@
     <string name="clear_all">Effacer Tout</string>
     <string name="verify_message">Vérifier le message</string>
     <string name="invalid_base64_string">Ce n\'est pas une chaîne base64.</string>
-    <string name="help_description">Pour plus d\'information, merci de visiter la documentation de Decred.</string>
+    <string name="help_description">Pour plus d\'information, merci de visiter la documentation de Bitcoin.</string>
     <string name="see_documentations">Voir documentations</string>
     <string name="exchange_rate_fetch_error">Le taux de change n\'est pas récupéré</string>
     <string name="retry">Réessayer</string>
@@ -525,9 +524,9 @@
     <string name="migrating_wallet">Migration du porte-monnaie</string>
     <string name="add_new_wallet">Ajouter un nouveau porte-monnaie</string>
     <string name="wait_for_sync">Attendre la fin de la synchronisation</string>
-    <string name="welcome_title">Bienvenue dans Decred Wall</string>
+    <string name="welcome_title">Bienvenue dans Bitcoin Wall</string>
     <string name="first_run_notice">Votre phrase de récupération à 33 mots est votre porte-monnaie, convervez-la en sécurité. Sans elle vos fonds ne peuvent pas être récupérés si votre appareil devait être perdu ou détruit. La synchronisaion initiale du porte-monnaie sera plus longue que normalement.</string>
-    <string name="welcome_screen_text">Bienvenue dans Decred Wallet, un porte-monnaie mobile sécurisé et open-source.</string>
+    <string name="welcome_screen_text">Bienvenue dans Bitcoin Wallet, un porte-monnaie mobile sécurisé et open-source.</string>
     <string name="mywallet">mywallet</string>
     <string name="today">Aujourd\'hui</string>
     <string name="yesterday">Hier</string>
@@ -540,6 +539,6 @@
     <string name="disconnect_delete_wallet">Déconnecter/annuler la synchronisation avant de supprimer un porte-monnaie</string>
     <string name="seed_backup_success_msg">Soyez certain de conserver votre phrase de récupération dans un lieu sûr.</string>
     <string name="seed_backup_verified">Votre phrase de récupération est vérifiée</string>
-    <string name="rebroadcast_tx_success">Transactions non-minées republiées vers le réseau decred</string>
+    <string name="rebroadcast_tx_success">Transactions non-minées republiées vers le réseau bitcoin</string>
 
 </resources>

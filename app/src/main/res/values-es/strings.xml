@@ -158,10 +158,10 @@
     <!--Error Messages-->
     <string name="not_enough_funds">No hay fondos suficientes.</string>
     <string name="empty_seed">Semilla vacía</string>
-    <string name="not_connected">No está conectado a la red de DECRED</string>
+    <string name="not_connected">No está conectado a la red de Bitcoin</string>
     <string name="passphrase_required">Se requiere frase de contraseña privada.</string>
     <string name="wallet_not_loaded">Billetera no cargada</string>
-    <string name="err_no_peers">La red DECRED es inalcanzable debido a la falta de pares.</string>
+    <string name="err_no_peers">La red Bitcoin es inalcanzable debido a la falta de pares.</string>
     <string name="not_enough_funds_synced">No hay fondos suficientes(o no se encuentra conectado).</string>
     <!--/Error Messages-->
 
