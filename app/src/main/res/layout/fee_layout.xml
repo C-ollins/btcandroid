@@ -38,7 +38,7 @@
                 android:id="@+id/tx_fee"
                 android:includeFontPadding="false"
                 android:textSize="@dimen/edit_text_size_16"
-                android:text="@string/_dcr"
+                android:text="@string/_btc"
                 android:textColor="@color/darkBlueTextColor"
                 app:fontFamily="@font/source_sans_pro" />
 

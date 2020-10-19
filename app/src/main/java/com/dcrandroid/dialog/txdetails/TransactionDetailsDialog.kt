@@ -72,7 +72,7 @@ class TransactionDetailsDialog(val transaction: Transaction) : FullScreenBottomS
         tx_details_id.setOnClickListener(this)
         tx_details_id.text = transaction.hash
         tx_details_type.text = transaction.type
-        tx_details_fee.text = getString(R.string.x_dcr, CoinFormat.formatDecred(transaction.fee))
+        tx_details_fee.text = getString(R.string.x_btc, CoinFormat.formatDecred(transaction.fee))
 
         when (transaction.type) {
             Dcrlibwallet.TxTypeRegular -> {
@@ -111,9 +111,6 @@ class TransactionDetailsDialog(val transaction: Transaction) : FullScreenBottomS
             }
             else -> {
                 val title = when(transaction.type){
-                    Dcrlibwallet.TxTypeTicketPurchase -> R.string.ticket_purchase
-                    Dcrlibwallet.TxTypeVote -> R.string.vote
-                    Dcrlibwallet.TxTypeRevocation -> R.string.revoked
                     else -> R.string.tx_sort_coinbase
                 }
 
@@ -270,15 +267,6 @@ class TransactionDetailsDialog(val transaction: Transaction) : FullScreenBottomS
                     return
                 }
 
-                try {
-                    wallet.publishUnminedTransactions()
-                    SnackBar.showText(context!!, R.string.rebroadcast_tx_success)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    val op = "rebroadcast tx"
-                    Utils.showErrorDialog(context!!, op + ": " + e.message)
-                    Dcrlibwallet.logT(op, e.message)
-                }
             }
         }
     }

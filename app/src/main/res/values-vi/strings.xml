@@ -7,7 +7,7 @@
     <!--General-->
     <string name="wallet">Ví</string>
     <string name="crash_dialog_text">Đã xảy ra lỗi không mong muốn buộc ứng dụng phải dừng. Vui lòng giúp chúng tôi khắc phục điều này bằng cách gửi cho chúng tôi thông số kỹ thuật thiết bị và nhật ký ứng dụng của bạn, tất cả những gì bạn phải làm là nhấp vào OK. Điều này sẽ giúp chúng tôi ngăn lỗi xảy ra lần nữa</string>
-    <string name="send_dcr_info">Nhập hoặc quét địa chỉ ví đích\và số tiền trong DCR để gửi tiền.</string>
+    <string name="send_btc_info">Nhập hoặc quét địa chỉ ví đích\và số tiền trong BTC để gửi tiền.</string>
     <string name="type">Kiểu</string>
     <string name="loading">Đang tải</string>
     <string name="help">Trợ giúp</string>
@@ -20,7 +20,7 @@
     <string name="connection">Kết nối</string>
     <string name="testnet">Mạng thử nghiệm (testnet)</string>
     <string name="general">Tổng hợp</string>
-    <string name="view_on_dcrdata">Xem trên dcrdata</string>
+    <string name="view_on_blockchain">Xem trên blockchain</string>
     <string name="default_account">Tài khoản mặc định</string>
     <string name="exit_cap">THOÁT</string>
     <string name="delete">Xoá</string>

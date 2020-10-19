@@ -103,7 +103,7 @@
                             android:id="@+id/currency_label"
                             android:textSize="@dimen/edit_text_size_20"
                             android:textColor="@color/lightGrayTextColor"
-                            android:text="@string/dcr"
+                            android:text="@string/btc"
                             android:textAllCaps="true"
                             android:includeFontPadding="false"
                             android:layout_marginStart="@dimen/margin_padding_size_4"

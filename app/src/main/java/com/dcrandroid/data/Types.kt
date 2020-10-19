@@ -109,10 +109,6 @@ class Balance : Serializable {
                 spendable = bal.spendable
                 total = bal.total
                 immatureReward = bal.immatureReward
-                immatureStakeGeneration = bal.immatureStakeGeneration
-                lockedByTickets = bal.lockedByTickets
-                votingAuthority = bal.votingAuthority
-                unConfirmed = bal.unConfirmed
             }
         }
     }

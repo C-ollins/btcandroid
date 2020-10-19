@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_size_8"
-            android:text="@string/receive_dcr"
+            android:text="@string/receive_btc"
             android:textSize="@dimen/edit_text_size_20"
             android:textColor="@color/darkBlueTextColor"
             android:includeFontPadding="false"

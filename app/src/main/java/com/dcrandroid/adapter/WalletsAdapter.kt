@@ -98,7 +98,7 @@ class WalletsAdapter(val context: Context, val launchIntent: (intent: Intent, re
 
     private fun setupWalletRow(wallet: Wallet, holder: WalletsViewHolder, position: Int) {
         holder.walletName.text = wallet.name
-        holder.totalBalance.text = context.getString(R.string.dcr_amount,
+        holder.totalBalance.text = context.getString(R.string.btc_amount,
                 CoinFormat.formatDecred(wallet.totalWalletBalance()))
 
         if (wallet.encryptedSeed == null) {

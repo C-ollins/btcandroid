@@ -9,7 +9,7 @@
     <!--General-->
     <string name="wallet">Кошелёк</string>
     <string name="crash_dialog_text">Неожиданная ошибка спровоцировала сбой в работе приложения. Если вы перешлёте нам спецификацию вашего устройства и лог приложения, вы поможете нам решить эту проблему. Вам нужно просто нажать OK. Это поможет нам предотвратить появление ошибки в будущем.</string>
-    <string name="send_dcr_info">Для пересылки средств введите или отсканируйте адрес кошелька-получателя/и сумму в DCR.</string>
+    <string name="send_btc_info">Для пересылки средств введите или отсканируйте адрес кошелька-получателя/и сумму в BTC.</string>
     <string name="type">Тип</string>
     <string name="loading">Загружается</string>
     <string name="help">Справка</string>
@@ -22,7 +22,7 @@
     <string name="connection">Соединение</string>
     <string name="testnet">testnet</string>
     <string name="general">Основные</string>
-    <string name="view_on_dcrdata">просмотреть на dcrdata</string>
+    <string name="view_on_blockchain">просмотреть на blockchain</string>
     <string name="default_account">Аккаунт по умолчанию</string>
     <string name="exit_cap">ВЫХОД</string>
     <string name="delete">Удалить</string>

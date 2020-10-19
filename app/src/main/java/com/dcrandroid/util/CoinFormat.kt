@@ -17,9 +17,8 @@ import java.util.regex.Pattern
 
 object CoinFormat {
 
-    val dcrWithCommas = "#,###,###,##0.########"
-    val dcrWithCommasAndZeros = "#,###,###,##0.00000000"
-    val dcrWithoutCommas = "#########0.########"
+    val btcWithCommasAndZeros = "#,###,###,##0.00000000"
+    val btcWithoutCommas = "#########0.########"
 
     fun format(str: String, relativeSize: Float = 0.7f): Spannable {
         val spannable = SpannableString(str)
@@ -68,17 +67,17 @@ object CoinFormat {
         return spannable
     }
 
-    fun format(amount: Long, relativeSize: Float = 0.7f, suffix: String = " DCR"): Spannable {
+    fun format(amount: Long, relativeSize: Float = 0.7f, suffix: String = " BTC"): Spannable {
         return format(Dcrlibwallet.amountCoin(amount), relativeSize, suffix)
     }
 
-    fun format(amount: Double, relativeSize: Float = 0.7f, suffix: String = " DCR"): Spannable {
+    fun format(amount: Double, relativeSize: Float = 0.7f, suffix: String = " BTC"): Spannable {
         return format(formatDecred(amount) + suffix, relativeSize)
     }
 
-    fun formatDecred(dcr: Double, pattern: String = dcrWithCommasAndZeros) = formatDecred(Dcrlibwallet.amountAtom(dcr), pattern)
+    fun formatDecred(dcr: Double, pattern: String = btcWithCommasAndZeros) = formatDecred(Dcrlibwallet.amountAtom(dcr), pattern)
 
-    fun formatDecred(dcr: Long, pattern: String = dcrWithCommasAndZeros): String {
+    fun formatDecred(dcr: Long, pattern: String = btcWithoutCommas): String {
         val convertedDcr = Dcrlibwallet.amountCoin(dcr)
         val df = NumberFormat.getNumberInstance(Locale.ENGLISH) as DecimalFormat
         df.applyPattern(pattern)

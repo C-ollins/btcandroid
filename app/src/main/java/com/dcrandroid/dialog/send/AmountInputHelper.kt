@@ -54,7 +54,7 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
         }
 
     var usdAmount: BigDecimal? = null
-    var dcrAmount: BigDecimal? = null
+    var btcAmount: BigDecimal? = null
     val enteredAmount: BigDecimal?
         get() {
             val s = layout.send_amount.text.toString()
@@ -155,7 +155,7 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
                 if (currencyIsDCR) {
                     layout.currency_label.setText(R.string.usd)
                 } else {
-                    layout.currency_label.setText(R.string.dcr)
+                    layout.currency_label.setText(R.string.btc)
                 }
 
                 currencyIsDCR = !currencyIsDCR
@@ -163,7 +163,7 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
                 layout.send_amount.removeTextChangedListener(this)
                 if (enteredAmount != null) {
                     if (currencyIsDCR) {
-                        val dcr = dcrFormat.format(dcrAmount!!.setScale(8, BigDecimal.ROUND_HALF_EVEN).toDouble())
+                        val dcr = dcrFormat.format(btcAmount!!.setScale(8, BigDecimal.ROUND_HALF_EVEN).toDouble())
                         layout.send_amount.setText(CoinFormat.format(dcr, AmountRelativeSize))
                     } else {
                         val usd = usdAmount!!.setScale(2, BigDecimal.ROUND_HALF_EVEN).toPlainString()
@@ -189,16 +189,16 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
         }
     }
 
-    fun setAmountDCR(coin: Double) {
+    fun setAmountBTC(coin: Double) {
         if (coin > 0) {
             layout.send_amount.removeTextChangedListener(this)
 
-            dcrAmount = BigDecimal(coin)
-            usdAmount = dcrToUSD(exchangeDecimal, dcrAmount!!.toDouble())
+            btcAmount = BigDecimal(coin)
+            usdAmount = btcToUSD(exchangeDecimal, btcAmount!!.toDouble())
 
             if (currencyIsDCR) {
                 val dcr = Dcrlibwallet.amountAtom(coin)
-                val amountString = CoinFormat.formatDecred(dcr, CoinFormat.dcrWithoutCommas)
+                val amountString = CoinFormat.formatDecred(dcr, CoinFormat.btcWithoutCommas)
                 layout.send_amount.setText(CoinFormat.format(amountString, AmountRelativeSize))
             } else {
                 val usd = usdAmount!!.setScale(2, BigDecimal.ROUND_HALF_EVEN).toPlainString()
@@ -217,7 +217,7 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
         hideOrShowClearButton()
     }
 
-    fun setAmountDCR(dcr: Long) = setAmountDCR(Dcrlibwallet.amountCoin(dcr))
+    fun setAmountBTC(dcr: Long) = setAmountBTC(Dcrlibwallet.amountCoin(dcr))
 
     fun setError(error: String?) = GlobalScope.launch(Dispatchers.Main) {
         if (error == null) {
@@ -251,14 +251,14 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
 
         if (enteredAmount != null) {
             if (currencyIsDCR) {
-                dcrAmount = enteredAmount!!
-                usdAmount = dcrToUSD(exchangeDecimal, dcrAmount!!.toDouble())
+                btcAmount = enteredAmount!!
+                usdAmount = btcToUSD(exchangeDecimal, btcAmount!!.toDouble())
             } else {
                 usdAmount = enteredAmount!!
-                dcrAmount = usdToDCR(exchangeDecimal, usdAmount!!.toDouble())
+                btcAmount = usdToDCR(exchangeDecimal, usdAmount!!.toDouble())
             }
         } else {
-            dcrAmount = null
+            btcAmount = null
             usdAmount = null
         }
 
@@ -279,14 +279,14 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
             val usdStr = usdAmountFormat2.format(usd)
             layout.send_equivalent_value.text = context.getString(R.string.x_usd, usdStr)
         } else {
-            val dcr = if (dcrAmount == null) {
+            val dcr = if (btcAmount == null) {
                 0.0
             } else {
-                dcrAmount!!.toDouble()
+                btcAmount!!.toDouble()
             }
 
             val dcrStr = dcrFormat.format(dcr)
-            layout.send_equivalent_value.text = context.getString(R.string.x_dcr, dcrStr)
+            layout.send_equivalent_value.text = context.getString(R.string.x_btc, dcrStr)
         }
     }
 
@@ -311,8 +311,8 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
             layout.exchange_layout.show()
         }
 
-        if (dcrAmount != null) {
-            usdAmount = dcrToUSD(exchangeDecimal, dcrAmount!!.toDouble())
+        if (btcAmount != null) {
+            usdAmount = btcToUSD(exchangeDecimal, btcAmount!!.toDouble())
         }
 
         displayEquivalentValue()
@@ -334,14 +334,14 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
 fun dcrToFormattedUSD(exchangeDecimal: BigDecimal?, dcr: Double, scale: Int = 4): String {
     if (scale == 4) {
         return usdAmountFormat.format(
-                dcrToUSD(exchangeDecimal, dcr)!!.setScale(scale, BigDecimal.ROUND_HALF_EVEN).toDouble())
+                btcToUSD(exchangeDecimal, dcr)!!.setScale(scale, BigDecimal.ROUND_HALF_EVEN).toDouble())
     }
 
     return usdAmountFormat2.format(
-            dcrToUSD(exchangeDecimal, dcr)!!.setScale(scale, BigDecimal.ROUND_HALF_EVEN).toDouble())
+            btcToUSD(exchangeDecimal, dcr)!!.setScale(scale, BigDecimal.ROUND_HALF_EVEN).toDouble())
 }
 
-fun dcrToUSD(exchangeDecimal: BigDecimal?, dcr: Double): BigDecimal? {
+fun btcToUSD(exchangeDecimal: BigDecimal?, dcr: Double): BigDecimal? {
     val dcrDecimal = BigDecimal(dcr)
     return exchangeDecimal?.multiply(dcrDecimal)
 }

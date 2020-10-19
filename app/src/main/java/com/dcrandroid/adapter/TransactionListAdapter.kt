@@ -82,7 +82,7 @@ class TransactionListAdapter(val context: Context, val transactions: ArrayList<T
             }
             val strAmount = CoinFormat.formatDecred(txAmount)
 
-            holder.amount.text = CoinFormat.format(strAmount + Constants.NBSP + layoutInflater.context.getString(R.string.dcr), 0.7f)
+            holder.amount.text = CoinFormat.format(strAmount + Constants.NBSP + layoutInflater.context.getString(R.string.btc), 0.7f)
 
             val iconRes = when (transaction.direction) {
                 0 -> R.drawable.ic_send

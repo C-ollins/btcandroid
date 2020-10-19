@@ -8,10 +8,10 @@
     <!--General-->
     <string name="wallet">Carteira</string>
     <string name="crash_dialog_text">Um erro inesperado ocorreu forçando a parada da aplicação. Por favor nos ajude a consertar isso, envie a especifícação do seu aparelho e o registro (log) do aplicativo, basta apertear o botão OK. Isso nos ajudará a prevenir que esse erro ocorra novamente.</string>
-    <string name="send_dcr_info">Insira ou escaneie o endereço da carteira de destino e o valor em DCR para enviar fundos.</string>
+    <string name="send_btc_info">Insira ou escaneie o endereço da carteira de destino e o valor em BTC para enviar fundos.</string>
     <string name="type">Tipo</string>
     <string name="loading">Carregando</string>
-    <string name="dcr" translatable="false">DCR</string>
+    <string name="btc" translatable="false">BTC</string>
     <string name="help">Ajuda</string>
     <string name="overview">Visão Geral</string>
     <string name="permission">Permissão</string>
@@ -22,7 +22,7 @@
     <string name="connection">Conexão</string>
     <string name="testnet">testnet</string>
     <string name="general">Geral</string>
-    <string name="view_on_dcrdata">Ver em dcrdata</string>
+    <string name="view_on_blockchain">Ver em blockchain</string>
     <string name="default_account">Conta Padrão</string>
     <string name="exit_cap">SAIR</string>
     <string name="delete">Apagar</string>

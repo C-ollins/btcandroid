@@ -77,7 +77,7 @@ class AccountsAdapter(private val context: Context, private val walletID: Long) 
             holder.accountName.text = account.accountName
             holder.accountName.isSelected = true
             holder.totalBalance.text = CoinFormat.format(account.totalBalance)
-            holder.spendableBalance.text = context.getString(R.string.dcr_amount,
+            holder.spendableBalance.text = context.getString(R.string.btc_amount,
                     CoinFormat.formatDecred(account.balance.spendable))
 
             holder.itemView.setOnClickListener {

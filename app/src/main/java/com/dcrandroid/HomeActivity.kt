@@ -100,13 +100,13 @@ class HomeActivity : BaseActivity(), SyncProgressListener, TxAndBlockNotificatio
         initNavigationTabs()
 
         fab_receive.setOnClickListener {
-            if (multiWallet!!.isSyncing) {
-                SnackBar.showError(this, R.string.wait_for_sync)
-                return@setOnClickListener
-            } else if (!multiWallet!!.isConnectedToDecredNetwork) {
-                SnackBar.showError(this, R.string.not_connected)
-                return@setOnClickListener
-            }
+           if (multiWallet!!.isSyncing) {
+               SnackBar.showError(this, R.string.wait_for_sync)
+               return@setOnClickListener
+           } else if (!multiWallet!!.isConnectedToDecredNetwork) {
+               SnackBar.showError(this, R.string.not_connected)
+               return@setOnClickListener
+           }
             currentBottomSheet = ReceiveDialog(bottomSheetDismissed)
             currentBottomSheet!!.show(this)
         }
@@ -305,14 +305,6 @@ class HomeActivity : BaseActivity(), SyncProgressListener, TxAndBlockNotificatio
     }
 
     fun startSyncing() {
-        for (w in multiWallet!!.openedWalletsList()) {
-            if (!w.hasDiscoveredAccounts && w.isLocked) {
-                ResumeAccountDiscovery()
-                        .setWalletID(w.id)
-                        .show(supportFragmentManager, ResumeAccountDiscovery::javaClass.name)
-                return
-            }
-        }
         sendBroadcast(Intent(Constants.SYNCED))
         val syncIntent = Intent(this, SyncService::class.java)
         startService(syncIntent)
@@ -367,12 +359,11 @@ class HomeActivity : BaseActivity(), SyncProgressListener, TxAndBlockNotificatio
     // -- Sync Progress Listener
 
     override fun onSyncStarted(wasRestarted: Boolean) {
+
     }
 
-    override fun onHeadersRescanProgress(headersRescanProgress: HeadersRescanProgressReport?) {
-    }
+    override fun onCFiltersFetchProgress(p0: CFiltersFetchProgressReport?) {
 
-    override fun onAddressDiscoveryProgress(addressDiscoveryProgress: AddressDiscoveryProgressReport?) {
     }
 
     override fun onSyncCanceled(willRestart: Boolean) {
@@ -382,16 +373,14 @@ class HomeActivity : BaseActivity(), SyncProgressListener, TxAndBlockNotificatio
         WalletData.instance.peers = numberOfConnectedPeers
     }
 
+    override fun onRescanProgress(p0: RescanProgressReport) {
+
+    }
+
     override fun onSyncCompleted() {
     }
 
-    override fun onHeadersFetchProgress(headersFetchProgress: HeadersFetchProgressReport?) {
-    }
-
     override fun onSyncEndedWithError(err: java.lang.Exception?) {
-    }
-
-    override fun debug(debugInfo: DebugInfo?) {
     }
 }
 

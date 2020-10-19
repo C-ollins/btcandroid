@@ -27,9 +27,7 @@ import com.dcrandroid.data.DecredAddressURI
 import com.dcrandroid.data.TransactionData
 import com.dcrandroid.dialog.FullScreenBottomSheetDialog
 import com.dcrandroid.dialog.InfoDialog
-import com.dcrandroid.util.CoinFormat
-import com.dcrandroid.util.SnackBar
-import com.dcrandroid.util.Utils
+import com.dcrandroid.util.*
 import com.dcrandroid.view.util.AccountCustomSpinner
 import com.dcrandroid.view.util.SCAN_QR_REQUEST_CODE
 import dcrlibwallet.Dcrlibwallet
@@ -58,13 +56,13 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
 
     private val validForConstruct: Boolean
         get() {
-            return (amountHelper.dcrAmount != null || sendMax) &&
+            return (amountHelper.btcAmount != null || sendMax) &&
                     destinationAddressCard.estimationAddress != null
         }
 
     private val validForSend: Boolean
         get() {
-            return (amountHelper.dcrAmount != null || sendMax) &&
+            return (amountHelper.btcAmount != null || sendMax) &&
                     destinationAddressCard.destinationAddress != null
         }
 
@@ -110,7 +108,7 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
             }
 
             val transactionData = TransactionData().apply {
-                dcrAmount = amountHelper.dcrAmount!!
+                btcAmount = amountHelper.btcAmount!!
                 exchangeDecimal = amountHelper.exchangeDecimal
 
                 sendMax = true
@@ -127,6 +125,18 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
         }
 
         clearEstimates()
+
+
+        val title = PassPromptTitle(R.string.confirm_to_change, R.string.confirm_to_change, R.string.confirm_to_change)
+        var passPromptUtil: PassPromptUtil? = null
+        passPromptUtil = PassPromptUtil(fragmentActivity, 1, title, false) { dialog, pass ->
+            if (pass != null){
+            multiWallet.walletWithID(1).unlockWallet(pass.toByteArray())
+            }
+            return@PassPromptUtil true
+        }
+
+        passPromptUtil.show()
     }
 
     override fun onTxOrBalanceUpdateRequired(walletID: Long?) {
@@ -208,14 +218,14 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
     }
 
     private fun clearFields() {
-        amountHelper.setAmountDCR(0) // clear
+        amountHelper.setAmountBTC(0) // clear
         destinationAddressCard.clear()
     }
 
     override fun showInfo() {
         InfoDialog(context!!)
-                .setDialogTitle(getString(R.string.send_dcr))
-                .setMessage(getString(R.string.send_dcr_info))
+                .setDialogTitle(getString(R.string.send_btc))
+                .setMessage(getString(R.string.send_btc_info))
                 .setPositiveButton(getString(R.string.got_it), null)
                 .show()
     }
@@ -239,7 +249,7 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
                 sendMax = false
             }
 
-            if (amountHelper.dcrAmount != null && amountHelper.dcrAmount!!.toDouble() > 0) {
+            if (amountHelper.btcAmount != null && amountHelper.btcAmount!!.toDouble() > 0) {
                 constructTransaction()
             } else {
                 clearEstimates()
@@ -280,14 +290,14 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
     private fun clearEstimates() = GlobalScope.launch(Dispatchers.Main) {
         send_next.isEnabled = false
 
-        val zeroDcr = HtmlCompat.fromHtml(getString(R.string._dcr), 0)
+        val zeroDcr = HtmlCompat.fromHtml(getString(R.string._btc), 0)
         balance_after_send.text = zeroDcr
 
         if (amountHelper.exchangeDecimal == null) {
             tx_fee.text = zeroDcr
             total_cost.text = zeroDcr
         } else {
-            val zeroDcrUsd = HtmlCompat.fromHtml(getString(R.string._dcr_usd), 0)
+            val zeroDcrUsd = HtmlCompat.fromHtml(getString(R.string._btc_usd), 0)
             tx_fee.text = zeroDcrUsd
             total_cost.text = zeroDcrUsd
         }
@@ -325,7 +335,7 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
             total_cost.text = authoredTxData!!.totalCost
 
             if (sendMax) {
-                amountHelper.setAmountDCR(authoredTxData!!.amountAtom)
+                amountHelper.setAmountBTC(authoredTxData!!.amountAtom)
             }
 
         } catch (e: Exception) {
@@ -337,7 +347,7 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
     }
 
     private fun authorTx(): AuthoredTxData {
-        val amount = amountHelper.dcrAmount
+        val amount = amountHelper.btcAmount
         var amountAtom = when {
             sendMax -> 0
             else -> Dcrlibwallet.amountAtom(amount!!.toDouble())
@@ -366,9 +376,9 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
         val totalCostAtom = amountAtom + feeAtom
         val balance = selectedAccount.balance.spendable - totalCostAtom
         val balanceAfterSend = if (balance > 0) {
-            getString(R.string.x_dcr, CoinFormat.formatDecred(balance))
+            getString(R.string.x_btc, CoinFormat.formatDecred(balance))
         } else {
-            getString(R.string.x_dcr, "0")
+            getString(R.string.x_btc, "0")
         }
 
         val feeString = CoinFormat.formatDecred(feeAtom)
@@ -378,8 +388,8 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
         val totalCostSpanned: Spanned
 
         if (amountHelper.exchangeDecimal == null) {
-            feeSpanned = SpannableString(getString(R.string.x_dcr, feeString))
-            totalCostSpanned = SpannableString(getString(R.string.x_dcr, totalCostString))
+            feeSpanned = SpannableString(getString(R.string.x_btc, feeString))
+            totalCostSpanned = SpannableString(getString(R.string.x_btc, totalCostString))
         } else {
             val feeCoin = Dcrlibwallet.amountCoin(feeAtom)
             val totalCostCoin = Dcrlibwallet.amountCoin(totalCostAtom)
@@ -387,8 +397,8 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
             val feeUSD = dcrToFormattedUSD(amountHelper.exchangeDecimal, feeCoin)
             val totalCostUSD = dcrToFormattedUSD(amountHelper.exchangeDecimal, totalCostCoin, 2)
 
-            feeSpanned = HtmlCompat.fromHtml(getString(R.string.x_dcr_usd, feeString, feeUSD), 0)
-            totalCostSpanned = HtmlCompat.fromHtml(getString(R.string.x_dcr_usd, totalCostString, totalCostUSD), 0)
+            feeSpanned = HtmlCompat.fromHtml(getString(R.string.x_btc_usd, feeString, feeUSD), 0)
+            totalCostSpanned = HtmlCompat.fromHtml(getString(R.string.x_btc_usd, totalCostString, totalCostUSD), 0)
         }
 
         return AuthoredTxData().apply {
@@ -412,7 +422,7 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
             destinationAddressCard.addressInputHelper.editText.setText(decredAddressUri.address)
             if (decredAddressUri.amount != null) {
                 sendMax = false
-                amountHelper.setAmountDCR(decredAddressUri.amount!!)
+                amountHelper.setAmountBTC(decredAddressUri.amount!!)
             }
         }
     }

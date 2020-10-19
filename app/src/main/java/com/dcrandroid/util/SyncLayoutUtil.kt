@@ -12,7 +12,6 @@ import android.widget.LinearLayout
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dcrandroid.R
-import com.dcrandroid.adapter.MultiWalletSyncDetailsAdapter
 import com.dcrandroid.extensions.hide
 import com.dcrandroid.extensions.isShowing
 import com.dcrandroid.extensions.show
@@ -27,7 +26,7 @@ import kotlinx.android.synthetic.main.synced_unsynced_layout.view.*
 import kotlinx.android.synthetic.main.syncing_layout.view.*
 import kotlinx.coroutines.*
 
-class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: () -> Unit, scrollToBottom: () -> Unit) : SyncProgressListener, BlocksRescanProgressListener {
+class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: () -> Unit, scrollToBottom: () -> Unit) : SyncProgressListener {
 
     private val context: Context
         get() = syncLayout.context
@@ -35,27 +34,18 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
     private val multiWallet: MultiWallet
         get() = WalletData.multiWallet!!
 
-    private var syncDetailsAdapter: MultiWalletSyncDetailsAdapter
     private var openedWallets: ArrayList<Long> = ArrayList()
 
     private var blockUpdateJob: Job? = null
 
     init {
         loadOpenedWallets()
-        syncDetailsAdapter = MultiWalletSyncDetailsAdapter(context, openedWallets)
-
-        syncLayout.multi_wallet_sync_rv.layoutManager = LinearLayoutManager(context)
-        syncLayout.multi_wallet_sync_rv.isNestedScrollingEnabled = false
-        syncLayout.multi_wallet_sync_rv.adapter = syncDetailsAdapter
 
         multiWallet.removeSyncProgressListener(this.javaClass.name)
         multiWallet.addSyncProgressListener(this, this.javaClass.name)
 
-        multiWallet.setBlocksRescanProgressListener(this)
-
         if (multiWallet.isSyncing) {
             displaySyncingLayout()
-            multiWallet.publishLastSyncProgress(this.javaClass.name)
         } else {
             displaySyncedUnsynced()
         }
@@ -76,8 +66,6 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
                 launch(Dispatchers.Default) {
                     if (multiWallet.isSyncing) {
                         multiWallet.cancelSync()
-                    } else if (multiWallet.isRescanning) {
-                        multiWallet.cancelRescan()
                     }
                 }
                 it.isEnabled = true
@@ -143,8 +131,6 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
         } else {
             showMultiWalletSyncLayout()
             loadOpenedWallets()
-            syncDetailsAdapter.fetchProgressReport = null
-            syncDetailsAdapter.notifyDataSetChanged()
         }
     }
 
@@ -162,8 +148,8 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
 
     private fun updateLatestBlock() = GlobalScope.launch(Dispatchers.Main) {
         val blockInfo = multiWallet.bestBlock
-        val currentTimeSeconds = System.currentTimeMillis() / 1000
-        val lastBlockRelativeTime = currentTimeSeconds - blockInfo.timestamp
+        val currentTimeSeconds = System.currentTimeMillis()
+        val lastBlockRelativeTime = (currentTimeSeconds - blockInfo.timestamp) / 1000
         val formattedLastBlockTime = TimeUtils.calculateTime(lastBlockRelativeTime, syncLayout.context)
 
         val latestBlock: String
@@ -184,6 +170,7 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
             val connectedPeers: String
 
             if (multiWallet.isSynced) {
+                println("Displaying synced layout")
 
                 syncLayout.tv_online_offline_status.setText(R.string.online)
                 syncLayout.view_online_offline_status.setBackgroundResource(R.drawable.online_dot)
@@ -197,7 +184,7 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
                 connectedPeers = context.getString(R.string.connected_peers, multiWallet.connectedPeers())
 
             } else {
-
+                println("Displaying unsynced layout")
                 syncLayout.tv_online_offline_status.setText(R.string.offline)
                 syncLayout.view_online_offline_status.setBackgroundResource(R.drawable.offline_dot)
 
@@ -233,11 +220,7 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
         syncLayout.tv_online_offline_status.setText(R.string.online)
         syncLayout.view_online_offline_status.setBackgroundResource(R.drawable.online_dot)
 
-        syncLayout.syncing_layout.syncing_layout_status.text = if (multiWallet.isRescanning) {
-            context.getString(R.string.rescanning_blocks_ellipsis)
-        } else {
-            context.getString(R.string.syncing_state)
-        }
+        syncLayout.syncing_layout.syncing_layout_status.text =   context.getString(R.string.syncing_state)
     }
 
     private fun showSyncVerboseExtras() {
@@ -267,99 +250,18 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
     }
 
     override fun onSyncStarted(wasRestarted: Boolean) {
+        println("Sync started")
         displaySyncingLayout()
     }
 
-    override fun onHeadersFetchProgress(headersFetchProgress: HeadersFetchProgressReport?) {
-        GlobalScope.launch(Dispatchers.Main) {
+    override fun onCFiltersFetchProgress(p0: CFiltersFetchProgressReport) {
+        println("Cfl progress")
 
-            // stage title
-            val syncStageTitle = context.getString(R.string.fetching_block_headers, headersFetchProgress?.headersFetchProgress)
-            syncLayout.tv_steps_title.text = HtmlCompat.fromHtml(syncStageTitle, 0)
-
-            syncLayout.tv_steps.text = context.getString(R.string.step_1_3)
-
-            // single wallet fetch headers layout
-            if (multiWallet.openedWalletsCount() == 1) {
-                showSyncVerboseExtras()
-
-                // block headers fetched
-                syncLayout.tv_block_header_fetched.setText(R.string.block_header_fetched)
-                syncLayout.tv_fetch_discover_scan_count.text = context.getString(R.string.block_header_fetched_count,
-                        headersFetchProgress!!.currentHeaderHeight, headersFetchProgress.totalHeadersToFetch)
-
-                // syncing progress
-                syncLayout.tv_progress.setText(R.string.syncing_progress)
-                val lastHeaderRelativeTime = (System.currentTimeMillis() / 1000) - headersFetchProgress.currentHeaderTimestamp
-                syncLayout.tv_days.text = TimeUtils.getDaysBehind(lastHeaderRelativeTime, context)
-
-            } else {
-                showMultiWalletSyncLayout()
-
-                syncDetailsAdapter.fetchProgressReport = headersFetchProgress!!
-                syncDetailsAdapter.notifyDataSetChanged()
-            }
-        }
-
-        publishSyncProgress(headersFetchProgress!!.generalSyncProgress)
-        displaySyncingLayoutIfNotShowing()
-    }
-
-    override fun onAddressDiscoveryProgress(addressDiscoveryProgress: AddressDiscoveryProgressReport?) {
-        GlobalScope.launch(Dispatchers.Main) {
-            // stage title
-            val syncStageTitle = context.getString(R.string.discovering_addresses, addressDiscoveryProgress?.addressDiscoveryProgress)
-            syncLayout.tv_steps_title.text = HtmlCompat.fromHtml(syncStageTitle, 0)
-
-            syncLayout.tv_steps.text = context.getString(R.string.step_2_3)
-
-            hideSyncVerboseExtras()
-
-            if (multiWallet.openedWalletsCount() > 1) {
-                syncLayout.syncing_layout_wallet_name.show()
-
-                val wallet = multiWallet.walletWithID(addressDiscoveryProgress!!.walletID)
-                syncLayout.tv_syncing_layout_wallet_name.text = wallet.name
-            } else {
-                syncLayout.syncing_layout_wallet_name.hide()
-            }
-        }
-
-        publishSyncProgress(addressDiscoveryProgress!!.generalSyncProgress)
-        displaySyncingLayoutIfNotShowing()
-    }
-
-    override fun onHeadersRescanProgress(headersRescanProgress: HeadersRescanProgressReport?) {
-        GlobalScope.launch(Dispatchers.Main) {
-            // stage title
-            val syncStageTitle = context.getString(R.string.scanning_block_headers, headersRescanProgress?.rescanProgress)
-            syncLayout.tv_steps_title.text = HtmlCompat.fromHtml(syncStageTitle, 0)
-
-            syncLayout.tv_steps.text = context.getString(R.string.step_3_3)
-
-            showSyncVerboseExtras()
-
-            // blocks scanned
-            syncLayout.tv_block_header_fetched.setText(R.string.scanned_blocks)
-            syncLayout.tv_fetch_discover_scan_count.text = headersRescanProgress!!.currentRescanHeight.toString()
-
-            // scan progress
-            syncLayout.tv_progress.setText(R.string.syncing_progress)
-            syncLayout.tv_days.text = context.getString(R.string.blocks_left,
-                    headersRescanProgress.totalHeadersToScan - headersRescanProgress.currentRescanHeight)
-
-            if (multiWallet.openedWalletsCount() > 1) {
-                syncLayout.syncing_layout_wallet_name.show()
-
-                val wallet = multiWallet.walletWithID(headersRescanProgress.walletID)
-                syncLayout.tv_syncing_layout_wallet_name.text = wallet.name
-            } else {
-                syncLayout.syncing_layout_wallet_name.hide()
-            }
-        }
-
-        publishSyncProgress(headersRescanProgress!!.generalSyncProgress)
-        displaySyncingLayoutIfNotShowing()
+//        val percentage = (p0.fetchedCfiltlers / p0.totalCFitlersToFetch) * 100
+//        val g = GeneralSyncProgress()
+//        g.totalSyncProgress = percentage
+//        g.totalTimeRemainingSeconds = 3600
+//        publishSyncProgress(g)
     }
 
     override fun onSyncCanceled(willRestart: Boolean) {
@@ -376,6 +278,7 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
     }
 
     override fun onSyncCompleted() {
+        println("Sync completed")
         displaySyncedUnsynced()
     }
 
@@ -385,53 +288,11 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
                 syncLayout.connected_peers.text = HtmlCompat.fromHtml(context.getString(R.string.connected_peers, multiWallet.connectedPeers()), 0)
             } else if (multiWallet.isSyncing) {
                 syncLayout.tv_syncing_layout_connected_peer.text = numberOfConnectedPeers.toString()
-            } else if (multiWallet.isRescanning) {
-                syncLayout.tv_steps_title.setText(R.string.connected_peers_count)
-                syncLayout.tv_steps.text = multiWallet.connectedPeers().toString()
             }
         }
     }
 
-    override fun debug(debugInfo: DebugInfo?) {}
-
-    override fun onBlocksRescanStarted(walletID: Long) {
-        displaySyncingLayout()
-    }
-
-    override fun onBlocksRescanEnded(walletID: Long, e: java.lang.Exception?) {
-        displaySyncedUnsynced()
-    }
-
-    override fun onBlocksRescanProgress(report: HeadersRescanProgressReport) {
-        GlobalScope.launch(Dispatchers.Main) {
-            // connected peers
-            syncLayout.tv_steps.setText(R.string.connected_peers_count)
-            syncLayout.tv_steps_title.text = multiWallet.connectedPeers().toString()
-
-            syncLayout.syncing_layout_connected_peers_row.hide()
-
-            showSyncVerboseExtras()
-
-            // blocks scanned
-            syncLayout.tv_block_header_fetched.setText(R.string.scanned_blocks)
-            syncLayout.tv_fetch_discover_scan_count.text = report.currentRescanHeight.toString()
-
-            // scan progress
-            syncLayout.tv_progress.setText(R.string.syncing_progress)
-            syncLayout.tv_days.text = context.getString(R.string.blocks_left,
-                    report.totalHeadersToScan - report.currentRescanHeight)
-
-            if (multiWallet.openedWalletsCount() > 1) {
-                syncLayout.syncing_layout_wallet_name.show()
-
-                val wallet = multiWallet.walletWithID(report.walletID)
-                syncLayout.tv_syncing_layout_wallet_name.text = wallet.name
-            } else {
-                syncLayout.syncing_layout_wallet_name.hide()
-            }
-        }
-
-        publishSyncProgress(report.generalSyncProgress)
-        displaySyncingLayoutIfNotShowing()
+    override fun onRescanProgress(p0: RescanProgressReport) {
+        println("Rescanning ${p0.rescanProgress}%")
     }
 }

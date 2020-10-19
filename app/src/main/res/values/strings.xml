@@ -10,10 +10,10 @@
     <string name="crash_dialog_text">An unexpected error occurred forcing the
     application to stop. Please help us fix this by sending us your device specification and app log,
     all you have to do is click OK. This will help us prevent the error from occurring again</string>
-    <string name="send_dcr_info">Input or scan the destination wallet address and the amount in DCR to send funds.</string>
+    <string name="send_btc_info">Input or scan the destination wallet address and the amount in BTC to send funds.</string>
     <string name="type">Type</string>
     <string name="loading">Loading</string>
-    <string name="dcr" translatable="false">DCR</string>
+    <string name="btc" translatable="false">BTC</string>
     <string name="help">Help</string>
     <string name="about">About</string>
     <string name="statistics">Statistics</string>
@@ -35,7 +35,7 @@
     <string name="connection">Connection</string>
     <string name="testnet">testnet</string>
     <string name="general">General</string>
-    <string name="view_on_dcrdata">View on dcrdata</string>
+    <string name="view_on_blockchain">View on blockchain</string>
     <string name="https_docs_decred_org" translatable="false">https://docs.decred.org</string>
     <string name="default_account">Default Account</string>
     <string name="exit_cap">EXIT</string>
@@ -68,7 +68,7 @@
     <string name="rename">Rename</string>
     <string name="create">Create</string>
     <string name="_import">Import</string>
-    <string name="dcr_amount">%1$s DCR</string>
+    <string name="btc_amount">%1$s BTC</string>
     <string name="rename_wallet_sheet_title">Rename wallet</string>
     <string name="wallet_name">Wallet Name</string>
     <string name="view_property">View property</string>
@@ -291,7 +291,7 @@
     <string name="not_now">Not now</string>
     <!--/WIFI Sync-->
 
-    <string name="tx_details_account">%1$s DCR (%2$s)</string>
+    <string name="tx_details_account">%1$s BTC (%2$s)</string>
 
     <!--Landing page-->
     <string name="welcome_android_title">Welcome to\nDecred Android Wallet</string>
@@ -389,7 +389,7 @@
     <string name="immature">Immature</string>
     <string name="live">Live</string>
     <string name="purchased">Purchased</string>
-    <string name="receive_dcr">Receive DCR</string>
+    <string name="receive_btc">Receive BTC</string>
     <string name="selected_account_name">%1$s (%2$s)</string>
     <string name="decred_qr_address_prefix">decred:%1$s</string>
     <string name="got_it">Got It</string>
@@ -404,15 +404,15 @@
     <string name="transaction_size">Transaction size</string>
     <string name="total_cost">Total cost</string>
     <string name="next">Next</string>
-    <string name="send_dcr">Send DCR</string>
-    <string name="spendable_bal_format">Spendable: %1$s DCR</string>
-    <string name="send_x_dcr">Send %1$s DCR</string>
+    <string name="send_btc">Send BTC</string>
+    <string name="spendable_bal_format">Spendable: %1$s BTC</string>
+    <string name="send_x_btc">Send %1$s BTC</string>
 
-    <string name="x_dcr">%1$s DCR</string>
+    <string name="x_btc">%1$s BTC</string>
     <string name="x_usd">%1$s USD</string>
-    <string name="_dcr"><![CDATA[<font color="#596D81">—</font> DCR]]></string>
-    <string name="_dcr_usd"><![CDATA[<font color="#596d81">—</font> DCR <font color="#8997a5">(— USD)</font>]]></string>
-    <string name="x_dcr_usd"><![CDATA[%1$s DCR <font color="#8997a5">($%2$s USD)</font>]]></string>
+    <string name="_btc"><![CDATA[<font color="#596D81">—</font> BTC]]></string>
+    <string name="_btc_usd"><![CDATA[<font color="#596d81">—</font> BTC <font color="#8997a5">(— USD)</font>]]></string>
+    <string name="x_btc_usd"><![CDATA[%1$s BTC <font color="#8997a5">($%2$s USD)</font>]]></string>
     <string name="balance_after_send">Balance after send</string>
     <string name="confirm_to_send">Confirm to send</string>
     <string name="confirm_show_seed">"Confirm to show seed"</string>
@@ -420,7 +420,7 @@
     <string name="send_from_account"><![CDATA[Sending from <font color="#091440"><b>%1$s (%2$s)</b></font>]]></string>
     <string name="send_invalid">Not valid for send</string>
     <string name="to_destination_address">To destination address</string>
-    <string name="send_dcr_warning">Your DCR will be sent and CANNOT be undone.</string>
+    <string name="send_btc_warning">Your BTC will be sent and CANNOT be undone.</string>
     <string name="to_self">To self</string>
     <string name="processing_ellipsis">Processing…</string>
     <string name="success">Success</string>

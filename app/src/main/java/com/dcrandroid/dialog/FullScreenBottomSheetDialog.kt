@@ -102,11 +102,11 @@ open class FullScreenBottomSheetDialog(val dismissListener: DialogInterface.OnDi
 
     override fun onResume() {
         super.onResume()
-        multiWallet.removeSyncProgressListener(TAG)
-        multiWallet.removeTxAndBlockNotificationListener(TAG)
-
-        multiWallet.addSyncProgressListener(this, TAG)
-        multiWallet.addTxAndBlockNotificationListener(this, TAG)
+//        multiWallet.removeSyncProgressListener(TAG)
+//        multiWallet.removeTxAndBlockNotificationListener(TAG)
+//
+//        multiWallet.addSyncProgressListener(this, TAG)
+//        multiWallet.addTxAndBlockNotificationListener(this, TAG)
 
         isForeground = true
         if (requiresDataUpdate) {
@@ -122,8 +122,8 @@ open class FullScreenBottomSheetDialog(val dismissListener: DialogInterface.OnDi
 
     override fun onDestroy() {
         super.onDestroy()
-        multiWallet.removeSyncProgressListener(TAG)
-        multiWallet.removeTxAndBlockNotificationListener(TAG)
+//        multiWallet.removeSyncProgressListener(TAG)
+//        multiWallet.removeTxAndBlockNotificationListener(TAG)
     }
 
     open fun onTxOrBalanceUpdateRequired(walletID: Long?) {
@@ -133,11 +133,7 @@ open class FullScreenBottomSheetDialog(val dismissListener: DialogInterface.OnDi
         }
     }
 
-    override fun onHeadersRescanProgress(p0: HeadersRescanProgressReport?) {
-
-    }
-
-    override fun onAddressDiscoveryProgress(p0: AddressDiscoveryProgressReport?) {
+    override fun onCFiltersFetchProgress(p0: CFiltersFetchProgressReport?) {
 
     }
 
@@ -149,6 +145,10 @@ open class FullScreenBottomSheetDialog(val dismissListener: DialogInterface.OnDi
 
     }
 
+    override fun onRescanProgress(p0: RescanProgressReport?) {
+
+    }
+
     override fun onSyncCompleted() {
         onTxOrBalanceUpdateRequired(null)
     }
@@ -157,15 +157,8 @@ open class FullScreenBottomSheetDialog(val dismissListener: DialogInterface.OnDi
 
     }
 
-    override fun onHeadersFetchProgress(p0: HeadersFetchProgressReport?) {
-
-    }
 
     override fun onSyncEndedWithError(p0: Exception?) {
-
-    }
-
-    override fun debug(p0: DebugInfo?) {
 
     }
 

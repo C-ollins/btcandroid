@@ -12,10 +12,10 @@
     <string name="wallet">Cartera</string>
     <string name="crash_dialog_text">Ocurrió un error inesperado forzando a detener la aplicación. Ayúdenos a arreglar esto enviándonos las especificaciones de tu dispositivo y el registro de la aplicación.
     Todo lo que tienes que haces es dar click en "Aceptar". Esto nos ayudará a prevenir que este error vuelva a ocurrir.</string>
-    <string name="send_dcr_info">Ingresa o escanea la dirección de la billetera de destino y la cantidad de DCR para enviar fondos.</string>
+    <string name="send_btc_info">Ingresa o escanea la dirección de la billetera de destino y la cantidad de BTC para enviar fondos.</string>
     <string name="type">Tipo</string>
     <string name="loading">Cargando</string>
-    <string name="dcr" translatable="false">DCR</string>
+    <string name="btc" translatable="false">BTC</string>
     <string name="help">Ayuda</string>
     <string name="overview">Resumen</string>
     <string name="permission">Permisos</string>
@@ -26,7 +26,7 @@
     <string name="connection">Conexión</string>
     <string name="testnet">testnet</string>
     <string name="general">General</string>
-    <string name="view_on_dcrdata">Ver en dcrdata</string>
+    <string name="view_on_blockchain">Ver en blockchain</string>
     <string name="default_account">Cuenta por defecto</string>
     <string name="exit_cap">SALIR</string>
     <string name="delete">Eliminar</string>

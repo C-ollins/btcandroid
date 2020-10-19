@@ -21,7 +21,7 @@ import java.net.URL
 class GetExchangeRate(private val userAgent: String,
                       private val callback: ExchangeRateCallback) : AsyncTask<Void, String, String>() {
 
-    val exchangeURL = "https://bittrex.com/api/v1.1/public/getticker?market=USDT-DCR"
+    val exchangeURL = "https://bittrex.com/api/v1.1/public/getticker?market=USDT-BTC"
 
     override fun doInBackground(vararg voids: Void): String? {
         try {

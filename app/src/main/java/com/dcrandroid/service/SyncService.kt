@@ -117,21 +117,12 @@ class SyncService : Service(), SyncProgressListener {
 
     override fun onSyncStarted(wasRestarted: Boolean) {
     }
-
-    override fun onHeadersFetchProgress(headersFetchProgress: HeadersFetchProgressReport) {
-        publishProgress(headersFetchProgress.generalSyncProgress.totalTimeRemainingSeconds, headersFetchProgress.generalSyncProgress.totalSyncProgress)
-    }
-
-    override fun onAddressDiscoveryProgress(addressDiscoveryProgress: AddressDiscoveryProgressReport) {
-        publishProgress(addressDiscoveryProgress.generalSyncProgress.totalTimeRemainingSeconds, addressDiscoveryProgress.generalSyncProgress.totalSyncProgress)
-    }
-
-    override fun onHeadersRescanProgress(headersRescanProgress: HeadersRescanProgressReport) {
-        publishProgress(headersRescanProgress.generalSyncProgress.totalTimeRemainingSeconds, headersRescanProgress.generalSyncProgress.totalSyncProgress)
-    }
-
     override fun onSyncEndedWithError(err: Exception) {
         err.printStackTrace()
+    }
+
+    override fun onCFiltersFetchProgress(p0: CFiltersFetchProgressReport?) {
+
     }
 
     override fun onSyncCanceled(willRestart: Boolean) {
@@ -150,11 +141,13 @@ class SyncService : Service(), SyncProgressListener {
         showNotification()
     }
 
+    override fun onRescanProgress(p0: RescanProgressReport?) {
+
+    }
+
     override fun onSyncCompleted() {
         println("Synced, destroying service")
         stopForeground(true)
         stopSelf()
     }
-
-    override fun debug(debugInfo: DebugInfo?) {}
 }

@@ -75,14 +75,12 @@ class WalletSettings : BaseActivity() {
                 SnackBar.showError(this, R.string.err_sync_in_progress)
             } else if (!multiWallet!!.isSynced) {
                 SnackBar.showError(this, R.string.not_connected)
-            } else if (multiWallet!!.isRescanning) {
-                SnackBar.showError(this, R.string.err_rescan_in_progress)
-            } else {
+            }  else {
                 InfoDialog(this)
                         .setDialogTitle(getString(R.string.rescan_blockchain))
                         .setMessage(getString(R.string.rescan_blockchain_warning))
                         .setPositiveButton(getString(R.string.yes), DialogInterface.OnClickListener { _, _ ->
-                            multiWallet!!.rescanBlocks(walletID)
+                            wallet.reIndexTransactions()
                             SnackBar.showText(this, R.string.rescan_progress_notification)
                         })
                         .setNegativeButton(getString(R.string.no))

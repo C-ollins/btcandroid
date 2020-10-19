@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_padding_size_8"
-                android:text="@string/send_dcr"
+                android:text="@string/send_btc"
                 android:textSize="@dimen/edit_text_size_20"
                 android:textColor="@color/darkBlueTextColor"
                 android:includeFontPadding="false"
@@ -216,7 +216,7 @@
                 android:textSize="@dimen/edit_text_size_16"
                 android:textColor="@color/darkBlueTextColor"
                 app:fontFamily="@font/source_sans_pro_regular"
-                android:text="@string/_dcr"
+                android:text="@string/_btc"
                 tools:text="3.14161775 DCR" />
 
         </LinearLayout>
@@ -246,7 +246,7 @@
                 android:includeFontPadding="false"
                 android:textSize="@dimen/edit_text_size_16"
                 android:textColor="@color/darkBlueTextColor"
-                android:text="@string/_dcr"
+                android:text="@string/_btc"
                 app:fontFamily="@font/source_sans_pro_regular"
                 tools:text="7.51464806 DCR" />
 

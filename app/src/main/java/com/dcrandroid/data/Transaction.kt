@@ -87,23 +87,6 @@ class Transaction : Serializable {
                 else -> R.drawable.ic_wallet
             }
 
-            // replace icon for staking tx types
-            if (Dcrlibwallet.txMatchesFilter(type, direction, Dcrlibwallet.TxFilterStaking)) {
-
-                res = when (type) {
-                    Dcrlibwallet.TxTypeTicketPurchase -> {
-                        if (confirmations < BuildConfig.TicketMaturity) {
-                            R.drawable.ic_ticket_immature
-                        } else {
-                            R.drawable.ic_ticket_live
-                        }
-                    }
-                    Dcrlibwallet.TxTypeVote -> R.drawable.ic_ticket_voted
-                    else -> R.drawable.ic_ticket_revoked
-                }
-
-            }
-
             return res
         }
 
@@ -161,7 +144,7 @@ class Transaction : Serializable {
 }
 
 class TransactionData {
-    lateinit var dcrAmount: BigDecimal
+    lateinit var btcAmount: BigDecimal
     var exchangeDecimal: BigDecimal? = null
 
     var sendMax = false

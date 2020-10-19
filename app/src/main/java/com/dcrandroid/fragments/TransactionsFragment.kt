@@ -126,7 +126,6 @@ class TransactionsFragment : BaseFragment(), AdapterView.OnItemSelectedListener,
         val sentTxCount = wallet!!.countTransactions(Dcrlibwallet.TxFilterSent)
         val receivedTxCount = wallet!!.countTransactions(Dcrlibwallet.TxFilterReceived)
         val transferredTxCount = wallet!!.countTransactions(Dcrlibwallet.TxFilterTransferred)
-        val stakingTxCount = wallet!!.countTransactions(Dcrlibwallet.TxFilterStaking)
         val coinbaseTxCount = wallet!!.countTransactions(Dcrlibwallet.TxFilterCoinBase)
 
         withContext(Dispatchers.Main) {
@@ -138,10 +137,6 @@ class TransactionsFragment : BaseFragment(), AdapterView.OnItemSelectedListener,
             availableTxTypes.add(context!!.getString(R.string.tx_sort_sent, sentTxCount))
             availableTxTypes.add(context!!.getString(R.string.tx_sort_received, receivedTxCount))
             availableTxTypes.add(context!!.getString(R.string.tx_sort_transferred, transferredTxCount))
-
-            if (stakingTxCount > 0) {
-                availableTxTypes.add(context!!.getString(R.string.tx_sort_staking, stakingTxCount))
-            }
 
             if (coinbaseTxCount > 0) {
                 availableTxTypes.add(context!!.getString(R.string.tx_sort_coinbase, coinbaseTxCount))
@@ -298,8 +293,7 @@ class TransactionsFragment : BaseFragment(), AdapterView.OnItemSelectedListener,
                 0 -> Dcrlibwallet.TxFilterAll
                 1 -> Dcrlibwallet.TxFilterSent
                 2 -> Dcrlibwallet.TxFilterReceived
-                3 -> Dcrlibwallet.TxFilterTransferred
-                else -> Dcrlibwallet.TxFilterStaking
+                else -> Dcrlibwallet.TxFilterTransferred
             }
 
             loadTransactions()

@@ -59,12 +59,12 @@ class ConfirmTransaction(private val fragmentActivity: FragmentActivity, val sen
         send_from_account_name.text = HtmlCompat.fromHtml(getString(R.string.send_from_account,
                 selectedAccount.accountName, wallet.name), 0)
 
-        val dcrAmount = CoinFormat.formatDecred(Dcrlibwallet.amountAtom(transactionData.dcrAmount.toDouble()))
+        val dcrAmount = CoinFormat.formatDecred(Dcrlibwallet.amountAtom(transactionData.btcAmount.toDouble()))
         val amountStr = if (transactionData.exchangeDecimal != null) {
-            val usdAmount = dcrToFormattedUSD(transactionData.exchangeDecimal, transactionData.dcrAmount.toDouble(), 2)
-            HtmlCompat.fromHtml(getString(R.string.x_dcr_usd, dcrAmount, usdAmount), 0)
+            val usdAmount = dcrToFormattedUSD(transactionData.exchangeDecimal, transactionData.btcAmount.toDouble(), 2)
+            HtmlCompat.fromHtml(getString(R.string.x_btc_usd, dcrAmount, usdAmount), 0)
         } else {
-            getString(R.string.x_dcr, dcrAmount)
+            getString(R.string.x_btc, dcrAmount)
         }
         if (amountStr is Spannable) {
             CoinFormat.formatSpannable(amountStr, AmountRelativeSize)
@@ -77,7 +77,7 @@ class ConfirmTransaction(private val fragmentActivity: FragmentActivity, val sen
         tx_fee.text = authoredTxData.fee
         total_cost.text = authoredTxData.totalCost
         balance_after_send.text = authoredTxData.balanceAfter
-        send_btn.text = getString(R.string.send_x_dcr, dcrAmount)
+        send_btn.text = getString(R.string.send_x_btc, dcrAmount)
 
         // address & account
         if (transactionData.destinationAccount == null) {
@@ -125,8 +125,12 @@ class ConfirmTransaction(private val fragmentActivity: FragmentActivity, val sen
                         } else {
                             withContext(Dispatchers.Main) {
                                 passDialog?.dismiss()
-                                Dcrlibwallet.logT(op, e.message)
-                                Utils.showErrorDialog(context!!, op + ": " + e.message)
+                                if(e.message == Dcrlibwallet.ErrNoPeers) {
+//                                    U
+                                }else {
+                                    Dcrlibwallet.logT(op, e.message)
+                                    Utils.showErrorDialog(context!!, op + ": " + e.message)
+                                }
                             }
                         }
                     }

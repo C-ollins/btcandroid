@@ -99,25 +99,23 @@ open class BaseFragment : Fragment(), SyncProgressListener, TxAndBlockNotificati
     override fun onSyncStarted(wasRestarted: Boolean) {
     }
 
-    override fun onHeadersRescanProgress(headersRescanProgress: HeadersRescanProgressReport?) {
-    }
+    override fun onCFiltersFetchProgress(p0: CFiltersFetchProgressReport?) {
 
-    override fun onAddressDiscoveryProgress(addressDiscoveryProgress: AddressDiscoveryProgressReport?) {}
+    }
 
     override fun onSyncCanceled(willRestart: Boolean) {}
 
     override fun onPeerConnectedOrDisconnected(numberOfConnectedPeers: Int) {}
 
+    override fun onRescanProgress(p0: RescanProgressReport?) {
+
+    }
+
     override fun onSyncCompleted() {
         onTxOrBalanceUpdateRequired(null)
     }
 
-    override fun onHeadersFetchProgress(headersFetchProgress: HeadersFetchProgressReport?) {}
-
     override fun onSyncEndedWithError(err: Exception?) {}
-
-    override fun debug(debugInfo: DebugInfo?) {}
-
 
     override fun onTransactionConfirmed(walletID: Long, hash: String, blockHeight: Int) {
         onTxOrBalanceUpdateRequired(walletID)

@@ -72,7 +72,7 @@ class CreateWatchOnlyWallet(val walletCreated: (wallet: Wallet) -> Unit) : FullS
 
             if (!it.isBlank()) {
                 try {
-                    multiWallet.validateExtPubKey(it)
+//                    multiWallet.validateExtPubKey(it)
                     return@InputHelper true
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -110,9 +110,9 @@ class CreateWatchOnlyWallet(val walletCreated: (wallet: Wallet) -> Unit) : FullS
 
             GlobalScope.launch(Dispatchers.IO) {
                 try {
-                    val wallet = multiWallet.createWatchOnlyWallet(walletName, extendedPublicKey)
+//                    val wallet = multiWallet.createWatchOnlyWallet(walletName, extendedPublicKey)
                     dismiss()
-                    walletCreated(wallet)
+//                    walletCreated(wallet)
                 } catch (e: Exception) {
                     e.printStackTrace()
                     toggleUI(true)

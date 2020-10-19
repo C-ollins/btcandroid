@@ -10,7 +10,7 @@
     <string name="crash_dialog_text">一项意外错误导致应用被强制终止，请点击“确定”向我们发送您的设备规范和应用日志以帮助我们解决此问题，这将有助于我们防止错误的再次发生。</string>
     <string name="type">类别</string>
     <string name="loading">加载中</string>
-    <string name="dcr" translatable="false">DCR</string>
+    <string name="btc" translatable="false">BTC</string>
     <string name="help">帮助</string>
     <string name="about">关于</string>
     <string name="statistics">统计数据</string>
@@ -32,7 +32,7 @@
     <string name="connection">连接</string>
     <string name="testnet">测试网</string>
     <string name="general">通用</string>
-    <string name="view_on_dcrdata">在dcrdata查看</string>
+    <string name="view_on_blockchain">在blockchain查看</string>
     <string name="https_docs_decred_org" translatable="false">https://docs.decred.org</string>
     <string name="default_account">默认账户</string>
     <string name="exit_cap">退出</string>
@@ -65,7 +65,7 @@
     <string name="rename">重命名</string>
     <string name="create">创建</string>
     <string name="_import">导入</string>
-    <string name="dcr_amount">%1$s DCR</string>
+    <string name="btc_amount">%1$s BTC</string>
     <string name="rename_wallet_sheet_title">重命名钱包</string>
     <string name="wallet_name">钱包名称</string>
     <string name="view_property">查看资产</string>
@@ -288,7 +288,7 @@
     <string name="not_now">现在不</string>
     <!--/WIFI Sync-->
 
-    <string name="tx_details_account">%1$s DCR (%2$s)</string>
+    <string name="tx_details_account">%1$s BTC (%2$s)</string>
 
     <!--Landing page-->
     <string name="welcome_android_title">欢迎使用\nDecred Android 钱包</string>
@@ -386,7 +386,7 @@
     <string name="immature">未成熟</string>
     <string name="live">成熟</string>
     <string name="purchased">已购买</string>
-    <string name="receive_dcr">接收DCR</string>
+    <string name="receive_btc">接收BTC</string>
     <string name="selected_account_name">%1$s (%2$s)</string>
     <string name="decred_qr_address_prefix">decred:%1$s</string>
     <string name="got_it">了解</string>
@@ -401,15 +401,15 @@
     <string name="transaction_size">交易大小</string>
     <string name="total_cost">总花费</string>
     <string name="next">下一步</string>
-    <string name="send_dcr">发送 DCR</string>
-    <string name="spendable_bal_format">可花费的：%1$s DCR</string>
-    <string name="send_x_dcr">发送 %1$s DCR</string>
+    <string name="send_btc">发送 BTC</string>
+    <string name="spendable_bal_format">可花费的：%1$s BTC</string>
+    <string name="send_x_btc">发送 %1$s BTC</string>
 
-    <string name="x_dcr">%1$s DCR</string>
+    <string name="x_btc">%1$s BTC</string>
     <string name="x_usd">%1$s USD</string>
-    <string name="_dcr"><![CDATA[<font color="#596D81">—</font> DCR]]></string>
-    <string name="_dcr_usd"><![CDATA[<font color="#596d81">—</font> DCR <font color="#8997a5">(— USD)</font>]]></string>
-    <string name="x_dcr_usd"><![CDATA[%1$s DCR <font color="#8997a5">($%2$s USD)</font>]]></string>
+    <string name="_btc"><![CDATA[<font color="#596D81">—</font> BTC]]></string>
+    <string name="_btc_usd"><![CDATA[<font color="#596d81">—</font> BTC <font color="#8997a5">(— USD)</font>]]></string>
+    <string name="x_btc_usd"><![CDATA[%1$s BTC <font color="#8997a5">($%2$s USD)</font>]]></string>
     <string name="balance_after_send">发送后的余额</string>
     <string name="confirm_to_send">确认发送</string>
     <string name="confirm_show_seed">"确认显示助记词"</string>
@@ -417,7 +417,7 @@
     <string name="send_from_account"><![CDATA[发送来自<font color="#091440"><b>%1$s (%2$s)</b></font>]]></string>
     <string name="send_invalid">发送不正确</string>
     <string name="to_destination_address">到目标地址</string>
-    <string name="send_dcr_warning">你的DCR将被发送并且不能撤销。</string>
+    <string name="send_btc_warning">你的BTC将被发送并且不能撤销。</string>
     <string name="to_self">发给自己</string>
     <string name="processing_ellipsis">处理中…</string>
     <string name="success">成功</string>

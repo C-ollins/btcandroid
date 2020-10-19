@@ -28,6 +28,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import dcrlibwallet.Wallet
 import kotlinx.android.synthetic.main.receive_page_sheet.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -44,7 +45,7 @@ class ReceiveDialog(dismissListener: DialogInterface.OnDismissListener) : FullSc
 
     private val qrHints = HashMap<EncodeHintType, Any>()
     private var generatedUri: Uri? = null
-
+    private lateinit var wallet: Wallet
     private lateinit var sourceAccountSpinner: AccountCustomSpinner
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -54,6 +55,7 @@ class ReceiveDialog(dismissListener: DialogInterface.OnDismissListener) : FullSc
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        wallet = multiWallet.walletWithID(1)
         qrHints[EncodeHintType.MARGIN] = 0
         qrHints[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.H
 
@@ -66,6 +68,8 @@ class ReceiveDialog(dismissListener: DialogInterface.OnDismissListener) : FullSc
             setAddress(it.getCurrentAddress())
             return@AccountCustomSpinner Unit
         }
+
+        setAddress(wallet.currentAddress(0))
     }
 
     override fun onTxOrBalanceUpdateRequired(walletID: Long?) {
@@ -77,7 +81,7 @@ class ReceiveDialog(dismissListener: DialogInterface.OnDismissListener) : FullSc
 
     override fun showInfo() {
         InfoDialog(context!!)
-                .setDialogTitle(getString(R.string.receive_dcr))
+                .setDialogTitle(getString(R.string.receive_btc))
                 .setMessage(getString(R.string.receive_fund_privacy_info))
                 .setPositiveButton(getString(R.string.got_it), null)
                 .show()
@@ -165,9 +169,9 @@ class ReceiveDialog(dismissListener: DialogInterface.OnDismissListener) : FullSc
 
     private fun generateNewAddress() {
         val oldAddress = tv_address.text.toString()
-        var newAddress = sourceAccountSpinner.getNewAddress()
+        var newAddress = wallet.nextAddress(0)
         if (oldAddress == newAddress) {
-            newAddress = sourceAccountSpinner.getNewAddress()
+            newAddress = wallet.nextAddress(0)
         }
 
         setAddress(newAddress)
