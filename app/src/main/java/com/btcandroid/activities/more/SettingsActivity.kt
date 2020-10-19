@@ -20,7 +20,7 @@ import com.btcandroid.preference.EditTextPreference
 import com.btcandroid.preference.ListPreference
 import com.btcandroid.preference.SwitchPreference
 import com.btcandroid.util.*
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.android.synthetic.main.settings_activity.*
 import kotlinx.android.synthetic.main.settings_activity.view.*
 import kotlinx.coroutines.Dispatchers
@@ -39,12 +39,12 @@ class SettingsActivity : BaseActivity(), ViewTreeObserver.OnScrollChangedListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
 
-        SwitchPreference(this, Dcrlibwallet.SpendUnconfirmedConfigKey, spend_unconfirmed_funds)
+        SwitchPreference(this, Btclibwallet.SpendUnconfirmedConfigKey, spend_unconfirmed_funds)
 
-        SwitchPreference(this, Dcrlibwallet.BeepNewBlocksConfigKey, beep_new_blocks)
-        SwitchPreference(this, Dcrlibwallet.SyncOnCellularConfigKey, wifi_sync)
+        SwitchPreference(this, Btclibwallet.BeepNewBlocksConfigKey, beep_new_blocks)
+        SwitchPreference(this, Btclibwallet.SyncOnCellularConfigKey, wifi_sync)
 
-        enableStartupSecurity = SwitchPreference(this, Dcrlibwallet.IsStartupSecuritySetConfigKey, startup_pin_password) { newValue ->
+        enableStartupSecurity = SwitchPreference(this, Btclibwallet.IsStartupSecuritySetConfigKey, startup_pin_password) { newValue ->
             if (newValue) {
                 setupStartupSecurity()
             } else {
@@ -54,7 +54,7 @@ class SettingsActivity : BaseActivity(), ViewTreeObserver.OnScrollChangedListene
             return@SwitchPreference !newValue
         }
 
-        useFingerprint = SwitchPreference(this, Dcrlibwallet.UseBiometricConfigKey, startup_security_fingerprint) { newValue ->
+        useFingerprint = SwitchPreference(this, Btclibwallet.UseBiometricConfigKey, startup_security_fingerprint) { newValue ->
             if (newValue) {
                 enableStartupFingerprint()
             } else {
@@ -69,19 +69,19 @@ class SettingsActivity : BaseActivity(), ViewTreeObserver.OnScrollChangedListene
             ChangePassUtil(this, null).begin()
         }
 
-        setCurrencyConversionSummary(multiWallet!!.readInt32ConfigValueForKey(Dcrlibwallet.CurrencyConversionConfigKey, Constants.DEF_CURRENCY_CONVERSION))
-        ListPreference(this, Dcrlibwallet.CurrencyConversionConfigKey, Constants.DEF_CURRENCY_CONVERSION,
+        setCurrencyConversionSummary(multiWallet!!.readInt32ConfigValueForKey(Btclibwallet.CurrencyConversionConfigKey, Constants.DEF_CURRENCY_CONVERSION))
+        ListPreference(this, Btclibwallet.CurrencyConversionConfigKey, Constants.DEF_CURRENCY_CONVERSION,
                 R.array.currency_conversion, currency_conversion) {
             setCurrencyConversionSummary(it)
         }
 
-        setPeerIP(multiWallet!!.readStringConfigValueForKey(Dcrlibwallet.SpvPersistentPeerAddressesConfigKey))
-        EditTextPreference(this, Dcrlibwallet.SpvPersistentPeerAddressesConfigKey, R.string.peer_ip_dialog_title,
+        setPeerIP(multiWallet!!.readStringConfigValueForKey(Btclibwallet.SpvPersistentPeerAddressesConfigKey))
+        EditTextPreference(this, Btclibwallet.SpvPersistentPeerAddressesConfigKey, R.string.peer_ip_dialog_title,
                 R.string.peer_ip_pref_hint, R.string.invalid_peer_ip, spv_peer_ip, validateIPAddress) {
             setPeerIP(it)
         }
 
-        EditTextPreference(this, Dcrlibwallet.UserAgentConfigKey, R.string.user_agent_dialog_title, R.string.user_agent, null, user_agent)
+        EditTextPreference(this, Btclibwallet.UserAgentConfigKey, R.string.user_agent_dialog_title, R.string.user_agent, null, user_agent)
 
         go_back.setOnClickListener {
             finish()
@@ -109,7 +109,7 @@ class SettingsActivity : BaseActivity(), ViewTreeObserver.OnScrollChangedListene
     }
 
     private fun loadStartupSecurity() {
-        if (multiWallet!!.readBoolConfigValueForKey(Dcrlibwallet.IsStartupSecuritySetConfigKey, Constants.DEF_STARTUP_SECURITY_SET)) {
+        if (multiWallet!!.readBoolConfigValueForKey(Btclibwallet.IsStartupSecuritySetConfigKey, Constants.DEF_STARTUP_SECURITY_SET)) {
             change_startup_security.show()
             enableStartupSecurity.setChecked(true)
 
@@ -147,7 +147,7 @@ class SettingsActivity : BaseActivity(), ViewTreeObserver.OnScrollChangedListene
                 } catch (e: java.lang.Exception) {
                     e.printStackTrace()
 
-                    if (e.message == Dcrlibwallet.ErrInvalidPassphrase) {
+                    if (e.message == Btclibwallet.ErrInvalidPassphrase) {
                         if (dialog is PinPromptDialog) {
                             dialog.setProcessing(false)
                             dialog.showError()
@@ -157,7 +157,7 @@ class SettingsActivity : BaseActivity(), ViewTreeObserver.OnScrollChangedListene
                         }
                     } else {
                         dialog?.dismiss()
-                        Dcrlibwallet.logT(op, e.message)
+                        Btclibwallet.logT(op, e.message)
                         Utils.showErrorDialog(this@SettingsActivity, op + ": " + e.message)
                     }
 
@@ -174,8 +174,8 @@ class SettingsActivity : BaseActivity(), ViewTreeObserver.OnScrollChangedListene
             GlobalScope.launch(Dispatchers.IO) {
                 try {
                     multiWallet!!.setStartupPassphrase(passphrase.toByteArray(), passphraseType)
-                    multiWallet!!.setInt32ConfigValueForKey(Dcrlibwallet.StartupSecurityTypeConfigKey, passphraseType)
-                    multiWallet!!.setBoolConfigValueForKey(Dcrlibwallet.IsStartupSecuritySetConfigKey, true)
+                    multiWallet!!.setInt32ConfigValueForKey(Btclibwallet.StartupSecurityTypeConfigKey, passphraseType)
+                    multiWallet!!.setBoolConfigValueForKey(Btclibwallet.IsStartupSecuritySetConfigKey, true)
 
                     withContext(Dispatchers.Main) {
                         dialog.dismiss()
@@ -211,7 +211,7 @@ class SettingsActivity : BaseActivity(), ViewTreeObserver.OnScrollChangedListene
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    if (e.message == Dcrlibwallet.ErrInvalidPassphrase) {
+                    if (e.message == Btclibwallet.ErrInvalidPassphrase) {
                         if (dialog is PinPromptDialog) {
                             dialog.setProcessing(false)
                             dialog.showError()

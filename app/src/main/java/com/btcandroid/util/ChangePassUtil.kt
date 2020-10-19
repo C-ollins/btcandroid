@@ -13,7 +13,7 @@ import com.btcandroid.dialog.FullScreenBottomSheetDialog
 import com.btcandroid.dialog.PasswordPromptDialog
 import com.btcandroid.dialog.PinPromptDialog
 import com.btcandroid.fragments.PasswordPinDialogFragment
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -55,7 +55,7 @@ class ChangePassUtil(private val fragmentActivity: FragmentActivity, val walletI
 
                         oldPassphrase = pass
 
-                        passwordPinDialogFragment.tabIndex = if (passPromptUtil!!.passType == Dcrlibwallet.PassphraseTypePass) {
+                        passwordPinDialogFragment.tabIndex = if (passPromptUtil!!.passType == Btclibwallet.PassphraseTypePass) {
                             0
                         } else 1
 
@@ -63,7 +63,7 @@ class ChangePassUtil(private val fragmentActivity: FragmentActivity, val walletI
                     } catch (e: Exception) {
                         e.printStackTrace()
 
-                        if (e.message == Dcrlibwallet.ErrInvalidPassphrase) {
+                        if (e.message == Btclibwallet.ErrInvalidPassphrase) {
                             if (dialog is PinPromptDialog) {
                                 dialog.setProcessing(false)
                                 dialog.showError()
@@ -74,7 +74,7 @@ class ChangePassUtil(private val fragmentActivity: FragmentActivity, val walletI
                         } else {
 
                             dialog?.dismiss()
-                            Dcrlibwallet.logT(op, e.message)
+                            Btclibwallet.logT(op, e.message)
                             Utils.showErrorDialog(fragmentActivity, op + ": " + e.message)
                         }
                     }
@@ -101,7 +101,7 @@ class ChangePassUtil(private val fragmentActivity: FragmentActivity, val walletI
             } catch (e: Exception) {
                 e.printStackTrace()
 
-                if (e.message == Dcrlibwallet.ErrInvalidPassphrase) {
+                if (e.message == Btclibwallet.ErrInvalidPassphrase) {
                     val passType = multiWallet.startupSecurityType()
                     showError(passType)
                 }
@@ -109,12 +109,12 @@ class ChangePassUtil(private val fragmentActivity: FragmentActivity, val walletI
         } else {
             try {
                 multiWallet.changePrivatePassphraseForWallet(walletID, oldPassphrase.toByteArray(), newPassphrase.toByteArray(), passphraseType)
-                if (multiWallet.readBoolConfigValueForKey(walletID.toString() + Dcrlibwallet.UseBiometricConfigKey, Constants.DEF_USE_FINGERPRINT)) {
+                if (multiWallet.readBoolConfigValueForKey(walletID.toString() + Btclibwallet.UseBiometricConfigKey, Constants.DEF_USE_FINGERPRINT)) {
                     BiometricUtils.saveToKeystore(fragmentActivity, newPassphrase, BiometricUtils.getWalletAlias(walletID))
                 }
                 SnackBar.showText(fragmentActivity, R.string.spending_passphrase_changed)
             } catch (e: Exception) {
-                if (e.message == Dcrlibwallet.ErrInvalidPassphrase) {
+                if (e.message == Btclibwallet.ErrInvalidPassphrase) {
                     val wallet = multiWallet.walletWithID(walletID)
                     showError(wallet.privatePassphraseType)
                 }
@@ -128,7 +128,7 @@ class ChangePassUtil(private val fragmentActivity: FragmentActivity, val walletI
     }
 
     private fun showError(passType: Int) {
-        val err = if (passType == Dcrlibwallet.PassphraseTypePass) {
+        val err = if (passType == Btclibwallet.PassphraseTypePass) {
             R.string.invalid_password
         } else {
             R.string.invalid_pin

@@ -13,14 +13,14 @@ import com.btcandroid.data.Constants
 import com.btcandroid.dialog.FullScreenBottomSheetDialog
 import com.btcandroid.dialog.PasswordPromptDialog
 import com.btcandroid.dialog.PinPromptDialog
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 
 data class PassPromptTitle(val passwordTitle: Int, val pinTitle: Int, val fingerprintTitle: Int = pinTitle)
 
 class PassPromptUtil(private val fragmentActivity: FragmentActivity, val walletID: Long?, val title: PassPromptTitle, private val allowFingerprint: Boolean,
                      private val passEntered: (dialog: FullScreenBottomSheetDialog?, passphrase: String?) -> Boolean) {
 
-    var passType: Int = Dcrlibwallet.PassphraseTypePass
+    var passType: Int = Btclibwallet.PassphraseTypePass
 
     fun show() {
         val multiWallet = WalletData.multiWallet!!
@@ -32,9 +32,9 @@ class PassPromptUtil(private val fragmentActivity: FragmentActivity, val walletI
         }
 
         val useFingerPrint = if (walletID == null) {
-            multiWallet.readBoolConfigValueForKey(Dcrlibwallet.UseBiometricConfigKey, Constants.DEF_USE_FINGERPRINT)
+            multiWallet.readBoolConfigValueForKey(Btclibwallet.UseBiometricConfigKey, Constants.DEF_USE_FINGERPRINT)
         } else {
-            multiWallet.readBoolConfigValueForKey(walletID.toString() + Dcrlibwallet.UseBiometricConfigKey, Constants.DEF_USE_FINGERPRINT)
+            multiWallet.readBoolConfigValueForKey(walletID.toString() + Btclibwallet.UseBiometricConfigKey, Constants.DEF_USE_FINGERPRINT)
         }
 
         if (allowFingerprint && useFingerPrint && BiometricUtils.isFingerprintEnrolled(fragmentActivity)) {
@@ -47,7 +47,7 @@ class PassPromptUtil(private val fragmentActivity: FragmentActivity, val walletI
     private fun showPasswordOrPin() {
         val isSpendingPass = walletID != null
 
-        if (passType == Dcrlibwallet.PassphraseTypePass) {
+        if (passType == Btclibwallet.PassphraseTypePass) {
             showPasswordDialog(isSpendingPass)
         } else {
             showPinDialog(isSpendingPass)
@@ -72,7 +72,7 @@ class PassPromptUtil(private val fragmentActivity: FragmentActivity, val walletI
             val promptInfo = BiometricPrompt.PromptInfo.Builder()
                     .setTitle(fragmentActivity.getString(title.fingerprintTitle))
 
-            val negativeButtonText = if (passType == Dcrlibwallet.PassphraseTypePass) {
+            val negativeButtonText = if (passType == Btclibwallet.PassphraseTypePass) {
                 fragmentActivity.getString(R.string.use_password)
             } else {
                 fragmentActivity.getString(R.string.use_pin)

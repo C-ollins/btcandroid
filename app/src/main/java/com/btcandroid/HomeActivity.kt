@@ -45,7 +45,7 @@ import com.btcandroid.util.SnackBar
 import com.btcandroid.util.Utils
 import com.btcandroid.util.WalletData
 import com.google.gson.Gson
-import dcrlibwallet.*
+import btclibwallet.*
 import kotlinx.android.synthetic.main.activity_tabs.*
 import java.text.DecimalFormat
 import kotlin.math.roundToInt
@@ -275,7 +275,7 @@ class HomeActivity : BaseActivity(), SyncProgressListener, TxAndBlockNotificatio
     }
 
     fun checkWifiSync() {
-        if (!multiWallet!!.readBoolConfigValueForKey(Dcrlibwallet.SyncOnCellularConfigKey, Constants.DEF_SYNC_ON_CELLULAR)) {
+        if (!multiWallet!!.readBoolConfigValueForKey(Btclibwallet.SyncOnCellularConfigKey, Constants.DEF_SYNC_ON_CELLULAR)) {
             // Check if wifi is connected
             val isWifiConnected = this.let { NetworkUtil.isWifiConnected(it) }
             if (!isWifiConnected) {
@@ -293,7 +293,7 @@ class HomeActivity : BaseActivity(), SyncProgressListener, TxAndBlockNotificatio
                     startSyncing()
 
                     val syncDialog = dialog as WiFiSyncDialog
-                    multiWallet!!.setBoolConfigValueForKey(Dcrlibwallet.SyncOnCellularConfigKey, syncDialog.checked)
+                    multiWallet!!.setBoolConfigValueForKey(Btclibwallet.SyncOnCellularConfigKey, syncDialog.checked)
 
                 })
 
@@ -323,7 +323,7 @@ class HomeActivity : BaseActivity(), SyncProgressListener, TxAndBlockNotificatio
     override fun onBlockAttached(walletID: Long, blockHeight: Int) {
         if (lastBeepHeight == -1 || blockHeight > lastBeepHeight) {
             lastBeepHeight = blockHeight
-            val beepNewBlocks = multiWallet!!.readBoolConfigValueForKey(Dcrlibwallet.BeepNewBlocksConfigKey, false)
+            val beepNewBlocks = multiWallet!!.readBoolConfigValueForKey(Btclibwallet.BeepNewBlocksConfigKey, false)
             if (beepNewBlocks && !multiWallet!!.isSyncing) {
                 alertSound.play(blockNotificationSound, 1f, 1f, 1, 0, 1f)
             }
@@ -334,10 +334,10 @@ class HomeActivity : BaseActivity(), SyncProgressListener, TxAndBlockNotificatio
         val gson = Gson()
         val transaction = gson.fromJson(transactionJson, Transaction::class.java)
 
-        if (transaction.direction == Dcrlibwallet.TxDirectionReceived) {
+        if (transaction.direction == Btclibwallet.TxDirectionReceived) {
             val dcrFormat = DecimalFormat("#.######## DCR")
 
-            val amount = Dcrlibwallet.amountCoin(transaction.amount)
+            val amount = Btclibwallet.amountCoin(transaction.amount)
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
             Utils.sendTransactionNotification(this, notificationManager, dcrFormat.format(amount),

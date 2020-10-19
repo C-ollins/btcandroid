@@ -15,7 +15,7 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.btcandroid.R
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.android.synthetic.main.create_password_sheet.*
 
 class CreatePasswordPromptFragment(var isSpending: Boolean, @StringRes var positiveButtonTitle: Int, val createWallet: (passphrase: String?) -> Unit) : Fragment() {
@@ -40,7 +40,7 @@ class CreatePasswordPromptFragment(var isSpending: Boolean, @StringRes var posit
 
             pinWatcher.afterTextChanged(null)
 
-            val progress = (Dcrlibwallet.shannonEntropy(it) / 4) * 100
+            val progress = (Btclibwallet.shannonEntropy(it) / 4) * 100
             if (progress > 70) {
                 pass_strength.progressDrawable = resources.getDrawable(R.drawable.password_strength_bar_strong)
             } else {

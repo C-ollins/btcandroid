@@ -22,8 +22,8 @@ import com.btcandroid.util.PassPromptTitle
 import com.btcandroid.util.PassPromptUtil
 import com.btcandroid.util.Utils
 import com.btcandroid.util.WalletData
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.Wallet
+import btclibwallet.Btclibwallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.save_seed_page.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -90,7 +90,7 @@ class SaveSeedActivity : BaseActivity() {
                 } catch (e: Exception) {
                     e.printStackTrace()
 
-                    if (e.message == Dcrlibwallet.ErrInvalidPassphrase) {
+                    if (e.message == Btclibwallet.ErrInvalidPassphrase) {
                         if (passDialog is PinPromptDialog) {
                             passDialog.setProcessing(false)
                             passDialog.showError()
@@ -102,7 +102,7 @@ class SaveSeedActivity : BaseActivity() {
                         withContext(Dispatchers.Main) {
                             passDialog?.dismiss()
                             Utils.showErrorDialog(this@SaveSeedActivity, op + ": " + e.message)
-                            Dcrlibwallet.logT(op, e.message)
+                            Btclibwallet.logT(op, e.message)
                         }
                     }
                 }

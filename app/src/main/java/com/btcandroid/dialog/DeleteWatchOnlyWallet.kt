@@ -15,8 +15,8 @@ import com.btcandroid.extensions.hide
 import com.btcandroid.extensions.show
 import com.btcandroid.util.Utils
 import com.btcandroid.view.util.InputHelper
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.Wallet
+import btclibwallet.Btclibwallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.delete_watch_only_wallet_sheet.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -61,7 +61,7 @@ class DeleteWatchOnlyWallet(val wallet: Wallet, val walletDeleted: () -> Unit) :
                     withContext(Dispatchers.Main) {
                         val op = this@DeleteWatchOnlyWallet.javaClass.name + ": createWatchOnlyWallet"
                         Utils.showErrorDialog(this@DeleteWatchOnlyWallet.context!!, op + ": " + e.message)
-                        Dcrlibwallet.logT(op, e.message)
+                        Btclibwallet.logT(op, e.message)
                     }
                 }
             }

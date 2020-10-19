@@ -14,7 +14,7 @@ import com.btcandroid.dialog.FullScreenBottomSheetDialog
 import com.btcandroid.dialog.InfoDialog
 import com.btcandroid.dialog.PasswordPromptDialog
 import com.btcandroid.dialog.PinPromptDialog
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -67,15 +67,15 @@ class MigrateV1Wallet(val activity: AppCompatActivity, val v1WalletPath: String,
 
     private fun completeV1WalletMigration(passphrase: String) = GlobalScope.launch(Dispatchers.IO) {
         val privatePassphraseType = when (preferenceUtil.getString(KEY_SPENDING_PASSPHRASE_TYPE, KEY_PASSWORD)) {
-            KEY_PASSWORD -> Dcrlibwallet.PassphraseTypePass
-            else -> Dcrlibwallet.PassphraseTypePin
+            KEY_PASSWORD -> Btclibwallet.PassphraseTypePass
+            else -> Btclibwallet.PassphraseTypePin
         }
 
         val peerIP = preferenceUtil.getString(KEY_PEER_IP, "")
 
         try {
             multiWallet!!.linkExistingWallet(activity.getString(R.string.mywallet), v1WalletPath, passphrase, privatePassphraseType)
-            multiWallet.setStringConfigValueForKey(Dcrlibwallet.SpvPersistentPeerAddressesConfigKey, peerIP)
+            multiWallet.setStringConfigValueForKey(Btclibwallet.SpvPersistentPeerAddressesConfigKey, peerIP)
 
             val transactionsFolder = File(activity.filesDir, BuildConfig.NetType)
             if (transactionsFolder.exists()) {
@@ -90,7 +90,7 @@ class MigrateV1Wallet(val activity: AppCompatActivity, val v1WalletPath: String,
             migrationComplete()
         } catch (e: Exception) {
             e.printStackTrace()
-            if (e.message == Dcrlibwallet.ErrInvalidPassphrase) {
+            if (e.message == Btclibwallet.ErrInvalidPassphrase) {
                 val errMessage = if (publicPassType == KEY_PASSWORD) {
                     R.string.invalid_password
                 } else {

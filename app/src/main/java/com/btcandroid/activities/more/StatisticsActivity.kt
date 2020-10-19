@@ -16,7 +16,7 @@ import com.btcandroid.activities.BaseActivity
 import com.btcandroid.extensions.openedWalletsList
 import com.btcandroid.util.TimeUtils
 import com.btcandroid.util.walletsDirName
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.android.synthetic.main.activity_statistics.*
 import java.util.*
 
@@ -62,7 +62,7 @@ class StatisticsActivity : BaseActivity() {
     private fun countAllWalletsTransactions(): Long {
         var count = 0L
         multiWallet!!.openedWalletsList()
-                .forEach { count += it.countTransactions(Dcrlibwallet.TxFilterAll) }
+                .forEach { count += it.countTransactions(Btclibwallet.TxFilterAll) }
         return count
     }
 }

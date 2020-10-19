@@ -17,8 +17,8 @@ import com.btcandroid.util.PassPromptUtil
 import com.btcandroid.util.Utils
 import com.btcandroid.util.WalletData
 import com.btcandroid.view.util.InputHelper
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.Wallet
+import btclibwallet.Btclibwallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.add_account_sheet.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -75,8 +75,8 @@ class AddAccountDialog(private val fragmentActivity: FragmentActivity, private v
                             withContext(Dispatchers.Main) {
                                 dialog?.dismiss()
 
-                                if (e.message == Dcrlibwallet.ErrInvalidPassphrase) {
-                                    val err = if (wallet.privatePassphraseType == Dcrlibwallet.PassphraseTypePass) {
+                                if (e.message == Btclibwallet.ErrInvalidPassphrase) {
+                                    val err = if (wallet.privatePassphraseType == Btclibwallet.PassphraseTypePass) {
                                         R.string.invalid_password
                                     } else R.string.invalid_pin
 

@@ -29,7 +29,7 @@ import com.btcandroid.util.Deserializer
 import com.btcandroid.util.NetworkUtil
 import com.btcandroid.util.SyncLayoutUtil
 import com.google.gson.GsonBuilder
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.android.synthetic.main.overview_backup_warning.*
 import kotlinx.android.synthetic.main.transactions_overview_layout.*
 import kotlinx.coroutines.Dispatchers
@@ -170,7 +170,7 @@ class OverviewFragment : BaseFragment(), ViewTreeObserver.OnScrollChangedListene
     }
 
     private fun loadTransactions() = GlobalScope.launch(Dispatchers.Default) {
-        val jsonResult = multiWallet!!.getTransactions(0, MAX_TRANSACTIONS, Dcrlibwallet.TxFilterRegular, true)
+        val jsonResult = multiWallet!!.getTransactions(0, MAX_TRANSACTIONS, Btclibwallet.TxFilterRegular, true)
         var tempTxList = gson.fromJson(jsonResult, Array<Transaction>::class.java)
 
         if (tempTxList == null) {
@@ -202,7 +202,7 @@ class OverviewFragment : BaseFragment(), ViewTreeObserver.OnScrollChangedListene
 
         val isWifiConnected = context?.let { NetworkUtil.isWifiConnected(it) }
         val isDataConnected = context?.let { NetworkUtil.isMobileDataConnected(it) }
-        val syncAnyways = multiWallet!!.readBoolConfigValueForKey(Dcrlibwallet.SyncOnCellularConfigKey, false)
+        val syncAnyways = multiWallet!!.readBoolConfigValueForKey(Btclibwallet.SyncOnCellularConfigKey, false)
 
         // 1. If the user chooses not to sync(means the user syncs only on wifi and wifi is off or the user tapped NO on the dialog)
         if (!isWifiConnected!! && !syncAnyways) {

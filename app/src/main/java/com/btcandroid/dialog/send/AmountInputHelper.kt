@@ -22,7 +22,7 @@ import com.btcandroid.extensions.toggleVisibility
 import com.btcandroid.util.CoinFormat
 import com.btcandroid.util.GetExchangeRate
 import com.btcandroid.util.WalletData
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.android.synthetic.main.fee_layout.view.*
 import kotlinx.android.synthetic.main.send_page_amount_card.view.*
 import kotlinx.coroutines.Dispatchers
@@ -103,7 +103,7 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
 
     private fun fetchExchangeRate() {
         val multiWallet = WalletData.multiWallet!!
-        val currencyConversion = multiWallet.readInt32ConfigValueForKey(Dcrlibwallet.CurrencyConversionConfigKey, Constants.DEF_CURRENCY_CONVERSION)
+        val currencyConversion = multiWallet.readInt32ConfigValueForKey(Btclibwallet.CurrencyConversionConfigKey, Constants.DEF_CURRENCY_CONVERSION)
 
         exchangeEnabled = currencyConversion > 0
 
@@ -112,7 +112,7 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
         }
 
         println("Getting exchange rate")
-        val userAgent = multiWallet.readStringConfigValueForKey(Dcrlibwallet.UserAgentConfigKey)
+        val userAgent = multiWallet.readStringConfigValueForKey(Btclibwallet.UserAgentConfigKey)
         GetExchangeRate(userAgent, this).execute()
     }
 
@@ -197,7 +197,7 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
             usdAmount = btcToUSD(exchangeDecimal, btcAmount!!.toDouble())
 
             if (currencyIsDCR) {
-                val dcr = Dcrlibwallet.amountAtom(coin)
+                val dcr = Btclibwallet.amountAtom(coin)
                 val amountString = CoinFormat.formatDecred(dcr, CoinFormat.btcWithoutCommas)
                 layout.send_amount.setText(CoinFormat.format(amountString, AmountRelativeSize))
             } else {
@@ -217,7 +217,7 @@ class AmountInputHelper(private val layout: LinearLayout, private val scrollToBo
         hideOrShowClearButton()
     }
 
-    fun setAmountBTC(dcr: Long) = setAmountBTC(Dcrlibwallet.amountCoin(dcr))
+    fun setAmountBTC(dcr: Long) = setAmountBTC(Btclibwallet.amountCoin(dcr))
 
     fun setError(error: String?) = GlobalScope.launch(Dispatchers.Main) {
         if (error == null) {

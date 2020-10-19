@@ -12,7 +12,7 @@ import com.btcandroid.HomeActivity
 import com.btcandroid.data.Transaction
 import com.btcandroid.util.WalletData
 import com.google.gson.Gson
-import dcrlibwallet.*
+import btclibwallet.*
 
 open class BaseFragment : Fragment(), SyncProgressListener, TxAndBlockNotificationListener {
 

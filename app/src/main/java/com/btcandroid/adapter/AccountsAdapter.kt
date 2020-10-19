@@ -20,7 +20,7 @@ import com.btcandroid.extensions.walletAccounts
 import com.btcandroid.util.CoinFormat
 import com.btcandroid.util.SnackBar
 import com.btcandroid.util.WalletData
-import dcrlibwallet.Wallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.account_row.view.*
 
 class AccountsAdapter(private val context: Context, private val walletID: Long) : RecyclerView.Adapter<AccountsAdapter.AccountsViewHolder>() {

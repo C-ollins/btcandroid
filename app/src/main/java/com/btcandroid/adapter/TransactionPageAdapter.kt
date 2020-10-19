@@ -19,8 +19,8 @@ import com.btcandroid.dialog.txdetails.TransactionDetailsDialog
 import com.btcandroid.extensions.hide
 import com.btcandroid.util.CoinFormat
 import com.btcandroid.util.WalletData
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.Wallet
+import btclibwallet.Btclibwallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.transaction_page_row.view.*
 
 class TransactionPageAdapter(val context: Context, walletID: Long, val transactions: ArrayList<Transaction>) : RecyclerView.Adapter<TransactionListViewHolder>() {
@@ -33,7 +33,7 @@ class TransactionPageAdapter(val context: Context, walletID: Long, val transacti
         val multiWallet = WalletData.multiWallet!!
         wallet = multiWallet.walletWithID(walletID)
         requiredConfirmations = when {
-            multiWallet.readBoolConfigValueForKey(Dcrlibwallet.SpendUnconfirmedConfigKey, Constants.DEF_SPEND_UNCONFIRMED) -> 0
+            multiWallet.readBoolConfigValueForKey(Btclibwallet.SpendUnconfirmedConfigKey, Constants.DEF_SPEND_UNCONFIRMED) -> 0
             else -> Constants.REQUIRED_CONFIRMATIONS
         }
     }
@@ -97,8 +97,8 @@ class TransactionPageAdapter(val context: Context, walletID: Long, val transacti
             transaction.animate = false
         }
 
-        if (transaction.type == Dcrlibwallet.TxTypeRegular) {
-            val txAmount = if (transaction.direction == Dcrlibwallet.TxDirectionSent) {
+        if (transaction.type == Btclibwallet.TxTypeRegular) {
+            val txAmount = if (transaction.direction == Btclibwallet.TxDirectionSent) {
                 -transaction.amount
             } else {
                 transaction.amount

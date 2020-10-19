@@ -17,8 +17,8 @@ import com.btcandroid.extensions.hide
 import com.btcandroid.extensions.show
 import com.btcandroid.util.Utils
 import com.btcandroid.view.util.InputHelper
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.Wallet
+import btclibwallet.Btclibwallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.create_watch_only_sheet.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -45,7 +45,7 @@ class CreateWatchOnlyWallet(val walletCreated: (wallet: Wallet) -> Unit) : FullS
                     try {
                         return@InputHelper !multiWallet.walletNameExists(it)
                     } catch (e: Exception) {
-                        if (e.message == Dcrlibwallet.ErrReservedWalletName) {
+                        if (e.message == Btclibwallet.ErrReservedWalletName) {
                             walletNameInput?.validationMessage = R.string.reserved_wallet_name
                         }
 
@@ -77,7 +77,7 @@ class CreateWatchOnlyWallet(val walletCreated: (wallet: Wallet) -> Unit) : FullS
                 } catch (e: Exception) {
                     e.printStackTrace()
 
-                    if (e.message == Dcrlibwallet.ErrUnusableSeed) {
+                    if (e.message == Btclibwallet.ErrUnusableSeed) {
                         extendedPublicKeyInput?.validationMessage = R.string.unusable_key
                     }
 
@@ -120,7 +120,7 @@ class CreateWatchOnlyWallet(val walletCreated: (wallet: Wallet) -> Unit) : FullS
                     withContext(Dispatchers.Main) {
                         val op = this@CreateWatchOnlyWallet.javaClass.name + ": createWatchOnlyWallet"
                         Utils.showErrorDialog(this@CreateWatchOnlyWallet.context!!, op + ": " + e.message)
-                        Dcrlibwallet.logT(op, e.message)
+                        Btclibwallet.logT(op, e.message)
                     }
                 }
             }

@@ -23,7 +23,7 @@ import com.btcandroid.extensions.hide
 import com.btcandroid.extensions.show
 import com.btcandroid.util.CoinFormat
 import com.btcandroid.util.WalletData
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.android.synthetic.main.transaction_row.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -36,7 +36,7 @@ class TransactionListAdapter(val context: Context, val transactions: ArrayList<T
     private val spendUnconfirmedFunds: Boolean
 
     init {
-        spendUnconfirmedFunds = multiWallet!!.readBoolConfigValueForKey(Dcrlibwallet.SpendUnconfirmedConfigKey, Constants.DEF_SPEND_UNCONFIRMED)
+        spendUnconfirmedFunds = multiWallet!!.readBoolConfigValueForKey(Btclibwallet.SpendUnconfirmedConfigKey, Constants.DEF_SPEND_UNCONFIRMED)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionListViewHolder {
@@ -74,8 +74,8 @@ class TransactionListAdapter(val context: Context, val transactions: ArrayList<T
             transaction.animate = false
         }
 
-        if (transaction.type == Dcrlibwallet.TxTypeRegular) {
-            val txAmount = if (transaction.direction == Dcrlibwallet.TxDirectionSent) {
+        if (transaction.type == Btclibwallet.TxTypeRegular) {
+            val txAmount = if (transaction.direction == Btclibwallet.TxDirectionSent) {
                 -transaction.amount
             } else {
                 transaction.amount

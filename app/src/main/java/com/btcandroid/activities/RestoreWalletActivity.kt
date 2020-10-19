@@ -21,7 +21,7 @@ import com.btcandroid.util.SnackBar
 import com.btcandroid.util.Utils
 import com.btcandroid.view.SeedEditTextLayout
 import com.btcandroid.view.util.SeedEditTextHelper
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.android.synthetic.main.activity_restore_wallet.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -104,7 +104,8 @@ class RestoreWalletActivity : BaseActivity() {
         }
 
         btn_restore.setOnClickListener {
-            val seedValid = Dcrlibwallet.verifySeed(enteredSeeds)
+//            val seedValid = Btclibwallet.verifySeed(enteredSeeds)
+            val seedValid = false
 
             if (!seedValid) {
                 SnackBar.showError(this, R.string.invalid_restore_seed)
@@ -117,7 +118,7 @@ class RestoreWalletActivity : BaseActivity() {
                 RequestNameDialog(R.string.wallet_name, "", true) { newName ->
                     try {
                         if (multiWallet!!.walletNameExists(newName)) {
-                            return@RequestNameDialog Exception(Dcrlibwallet.ErrExist)
+                            return@RequestNameDialog Exception(Btclibwallet.ErrExist)
                         }
 
                         requestWalletSpendingPass(newName)
@@ -134,8 +135,8 @@ class RestoreWalletActivity : BaseActivity() {
     }
 
     private fun loadSeedSuggestions() = GlobalScope.launch(Dispatchers.IO) {
-        val seedWords = Dcrlibwallet.AlternatingWords.split("\n")
-        allSeedWords.addAll(seedWords)
+//        val seedWords = Btclibwallet.AlternatingWords.split("\n")
+//        allSeedWords.addAll(seedWords)
     }
 
     private fun requestWalletSpendingPass(walletName: String) {
@@ -166,7 +167,7 @@ class RestoreWalletActivity : BaseActivity() {
             e.printStackTrace()
             withContext(Dispatchers.Main) {
                 dialog.dismiss()
-                Dcrlibwallet.logT(op, e.message)
+                Btclibwallet.logT(op, e.message)
                 Utils.showErrorDialog(this@RestoreWalletActivity, op + ": " + e.message)
             }
         }

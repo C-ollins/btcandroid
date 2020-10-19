@@ -21,8 +21,8 @@ import com.btcandroid.util.PassPromptTitle
 import com.btcandroid.util.PassPromptUtil
 import com.btcandroid.util.SnackBar
 import com.btcandroid.util.Utils
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.Wallet
+import btclibwallet.Btclibwallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.verify_seed_page.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -48,7 +48,7 @@ class VerifySeedActivity : BaseActivity() {
         linearLayoutManager = LinearLayoutManager(this)
         recycler_view_seeds.layoutManager = linearLayoutManager
 
-        allSeeds = Dcrlibwallet.AlternatingWords.split("\n").toTypedArray()
+//        allSeeds = Btclibwallet.AlternatingWords.split("\n").toTypedArray()
         prepareData()
 
         recycler_view_seeds.viewTreeObserver.addOnScrollChangedListener {
@@ -99,18 +99,18 @@ class VerifySeedActivity : BaseActivity() {
                         passDialog.setProcessing(false)
                     }
 
-                    if (e.message == Dcrlibwallet.ErrInvalidPassphrase) {
+                    if (e.message == Btclibwallet.ErrInvalidPassphrase) {
                         if (passDialog is PinPromptDialog) {
                             passDialog.showError()
                         } else if (passDialog is PasswordPromptDialog) {
                             passDialog.showError()
                         }
-                    } else if (e.message == Dcrlibwallet.ErrInvalid) {
+                    } else if (e.message == Btclibwallet.ErrInvalid) {
                         passDialog?.dismiss()
                         SnackBar.showError(this@VerifySeedActivity, R.string.seed_verification_failed)
                     } else {
                         withContext(Dispatchers.Main) {
-                            Dcrlibwallet.logT(op, e.message)
+                            Btclibwallet.logT(op, e.message)
                             Utils.showErrorDialog(this@VerifySeedActivity, op + ": " + e.message)
                         }
                     }

@@ -9,7 +9,7 @@ package com.btcandroid.util
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.RelativeSizeSpan
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
@@ -68,17 +68,17 @@ object CoinFormat {
     }
 
     fun format(amount: Long, relativeSize: Float = 0.7f, suffix: String = " BTC"): Spannable {
-        return format(Dcrlibwallet.amountCoin(amount), relativeSize, suffix)
+        return format(Btclibwallet.amountCoin(amount), relativeSize, suffix)
     }
 
     fun format(amount: Double, relativeSize: Float = 0.7f, suffix: String = " BTC"): Spannable {
         return format(formatDecred(amount) + suffix, relativeSize)
     }
 
-    fun formatDecred(dcr: Double, pattern: String = btcWithCommasAndZeros) = formatDecred(Dcrlibwallet.amountAtom(dcr), pattern)
+    fun formatDecred(dcr: Double, pattern: String = btcWithCommasAndZeros) = formatDecred(Btclibwallet.amountAtom(dcr), pattern)
 
     fun formatDecred(dcr: Long, pattern: String = btcWithoutCommas): String {
-        val convertedDcr = Dcrlibwallet.amountCoin(dcr)
+        val convertedDcr = Btclibwallet.amountCoin(dcr)
         val df = NumberFormat.getNumberInstance(Locale.ENGLISH) as DecimalFormat
         df.applyPattern(pattern)
         return df.format(convertedDcr)

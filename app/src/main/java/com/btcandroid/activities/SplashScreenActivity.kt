@@ -31,8 +31,8 @@ import com.btcandroid.extensions.hide
 import com.btcandroid.extensions.show
 import com.btcandroid.fragments.PasswordPinDialogFragment
 import com.btcandroid.util.*
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.MultiWallet
+import btclibwallet.Btclibwallet
+import btclibwallet.MultiWallet
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 import kotlinx.coroutines.*
 import kotlin.system.exitProcess
@@ -108,7 +108,7 @@ class SplashScreenActivity : BaseActivity() {
             withContext(Dispatchers.Main) {
                 dialog.dismiss()
                 Utils.showErrorDialog(this@SplashScreenActivity, op + ": " + e.message)
-                Dcrlibwallet.logT(op, e.message)
+                Btclibwallet.logT(op, e.message)
             }
         }
     }
@@ -137,17 +137,17 @@ class SplashScreenActivity : BaseActivity() {
         }
 
         val homeDir = "$filesDir/$walletsDirName"
-        walletData.multiWallet = MultiWallet(homeDir, Constants.BADGER_DB, BuildConfig.NetType)
+        walletData.multiWallet = MultiWallet(homeDir, BuildConfig.NetType)
 
         // set log level
         val logLevels = resources.getStringArray(R.array.logging_levels)
-        val logLevel = multiWallet!!.readInt32ConfigValueForKey(Dcrlibwallet.LogLevelConfigKey, Constants.DEF_LOG_LEVEL)
-        Dcrlibwallet.setLogLevels(logLevels[logLevel])
+        val logLevel = multiWallet!!.readInt32ConfigValueForKey(Btclibwallet.LogLevelConfigKey, Constants.DEF_LOG_LEVEL)
+        Btclibwallet.setLogLevels(logLevels[logLevel])
 
         if (multiWallet!!.loadedWalletsCount() == 0) {
 
             val v1WalletPath = "$filesDir/$v1WalletDirName/${BuildConfig.NetType}"
-            val v1WalletExists = Dcrlibwallet.walletExistsAt(v1WalletPath)
+            val v1WalletExists = Btclibwallet.walletExistsAt(v1WalletPath)
 
             if (v1WalletExists) {
 
@@ -204,9 +204,9 @@ class SplashScreenActivity : BaseActivity() {
                         .setMessage(Utils.translateError(this@SplashScreenActivity, e))
                         .setPositiveButton(getString(R.string.exit_cap), DialogInterface.OnClickListener { _, _ -> endProcess() })
 
-                if (e.message == Dcrlibwallet.ErrInvalidPassphrase) {
+                if (e.message == Btclibwallet.ErrInvalidPassphrase) {
 
-                    if (multiWallet!!.startupSecurityType() == Dcrlibwallet.PassphraseTypePin) {
+                    if (multiWallet!!.startupSecurityType() == Btclibwallet.PassphraseTypePin) {
                         infoDialog.setMessage(getString(R.string.invalid_pin))
                     }
 

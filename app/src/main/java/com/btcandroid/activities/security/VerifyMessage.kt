@@ -15,7 +15,7 @@ import com.btcandroid.dialog.InfoDialog
 import com.btcandroid.extensions.hide
 import com.btcandroid.extensions.show
 import com.btcandroid.view.util.InputHelper
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.android.synthetic.main.activity_verify_message.*
 
 class VerifyMessage : BaseActivity(), ViewTreeObserver.OnScrollChangedListener {
@@ -46,7 +46,7 @@ class VerifyMessage : BaseActivity(), ViewTreeObserver.OnScrollChangedListener {
 
         signatureInputHelper = InputHelper(this, signature_container) {
             try {
-                Dcrlibwallet.decodeBase64(it)
+                Btclibwallet.decodeBase64(it)
                 return@InputHelper true
             } catch (e: Exception) {
                 e.printStackTrace()

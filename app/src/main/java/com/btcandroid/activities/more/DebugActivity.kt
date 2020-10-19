@@ -13,7 +13,7 @@ import com.btcandroid.activities.BaseActivity
 import com.btcandroid.activities.LogViewer
 import com.btcandroid.data.Constants
 import com.btcandroid.preference.ListPreference
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.android.synthetic.main.activity_debug.*
 import kotlinx.android.synthetic.main.activity_debug.view.*
 
@@ -23,8 +23,8 @@ class DebugActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_debug)
 
-        setLogLevelSummary(multiWallet!!.readInt32ConfigValueForKey(Dcrlibwallet.LogLevelConfigKey, Constants.DEF_LOG_LEVEL))
-        ListPreference(this, Dcrlibwallet.LogLevelConfigKey, Constants.DEF_LOG_LEVEL,
+        setLogLevelSummary(multiWallet!!.readInt32ConfigValueForKey(Btclibwallet.LogLevelConfigKey, Constants.DEF_LOG_LEVEL))
+        ListPreference(this, Btclibwallet.LogLevelConfigKey, Constants.DEF_LOG_LEVEL,
                 R.array.logging_levels, logging_level) {
             setLogLevelSummary(it)
         }
@@ -45,6 +45,6 @@ class DebugActivity : BaseActivity() {
     private fun setLogLevelSummary(index: Int) {
         val logLevels = resources.getStringArray(R.array.logging_levels)
         logging_level.pref_subtitle.text = logLevels[index]
-        Dcrlibwallet.setLogLevels(logLevels[index])
+        Btclibwallet.setLogLevels(logLevels[index])
     }
 }

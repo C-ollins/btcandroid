@@ -25,8 +25,8 @@ import com.btcandroid.util.CoinFormat
 import com.btcandroid.util.PassPromptTitle
 import com.btcandroid.util.PassPromptUtil
 import com.btcandroid.util.Utils
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.Wallet
+import btclibwallet.Btclibwallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.confirm_send_sheet.*
 import kotlinx.coroutines.*
 
@@ -59,7 +59,7 @@ class ConfirmTransaction(private val fragmentActivity: FragmentActivity, val sen
         send_from_account_name.text = HtmlCompat.fromHtml(getString(R.string.send_from_account,
                 selectedAccount.accountName, wallet.name), 0)
 
-        val dcrAmount = CoinFormat.formatDecred(Dcrlibwallet.amountAtom(transactionData.btcAmount.toDouble()))
+        val dcrAmount = CoinFormat.formatDecred(Btclibwallet.amountAtom(transactionData.btcAmount.toDouble()))
         val amountStr = if (transactionData.exchangeDecimal != null) {
             val usdAmount = dcrToFormattedUSD(transactionData.exchangeDecimal, transactionData.btcAmount.toDouble(), 2)
             HtmlCompat.fromHtml(getString(R.string.x_btc_usd, dcrAmount, usdAmount), 0)
@@ -114,7 +114,7 @@ class ConfirmTransaction(private val fragmentActivity: FragmentActivity, val sen
                         e.printStackTrace()
                         showSendButton()
 
-                        if (e.message == Dcrlibwallet.ErrInvalidPassphrase) {
+                        if (e.message == Btclibwallet.ErrInvalidPassphrase) {
                             if (passDialog is PinPromptDialog) {
                                 passDialog.setProcessing(false)
                                 passDialog.showError()
@@ -125,10 +125,10 @@ class ConfirmTransaction(private val fragmentActivity: FragmentActivity, val sen
                         } else {
                             withContext(Dispatchers.Main) {
                                 passDialog?.dismiss()
-                                if(e.message == Dcrlibwallet.ErrNoPeers) {
+                                if(e.message == Btclibwallet.ErrNoPeers) {
 //                                    U
                                 }else {
-                                    Dcrlibwallet.logT(op, e.message)
+                                    Btclibwallet.logT(op, e.message)
                                     Utils.showErrorDialog(context!!, op + ": " + e.message)
                                 }
                             }

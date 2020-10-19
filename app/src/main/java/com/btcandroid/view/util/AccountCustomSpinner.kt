@@ -15,7 +15,7 @@ import com.btcandroid.dialog.AccountPickerDialog
 import com.btcandroid.extensions.*
 import com.btcandroid.util.CoinFormat
 import com.btcandroid.util.WalletData
-import dcrlibwallet.Wallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.account_custom_spinner.view.*
 
 class AccountCustomSpinner(private val fragmentManager: FragmentManager, private val spinnerLayout: View, private val showWatchOnlyWallets: Boolean,

@@ -23,7 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
-import dcrlibwallet.*
+import btclibwallet.*
 
 open class FullScreenBottomSheetDialog(val dismissListener: DialogInterface.OnDismissListener? = null) : BottomSheetDialogFragment(),
         SyncProgressListener, TxAndBlockNotificationListener {

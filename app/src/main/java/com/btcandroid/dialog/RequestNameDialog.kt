@@ -13,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.btcandroid.R
 import com.btcandroid.view.util.InputHelper
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.android.synthetic.main.rename_account_sheet.*
 
 const val MAX_NAME_LENGTH = 32
@@ -68,10 +68,10 @@ class RequestNameDialog(private val dialogTitle: Int, private val currentName: S
                 accountNameInput.editText.isEnabled = true
 
                 val errString = when (exception.message) {
-                    Dcrlibwallet.ErrExist -> {
+                    Btclibwallet.ErrExist -> {
                         getString(R.string.wallet_name_exists)
                     }
-                    Dcrlibwallet.ErrReservedWalletName -> {
+                    Btclibwallet.ErrReservedWalletName -> {
                         getString(R.string.reserved_wallet_name)
                     }
                     else -> {

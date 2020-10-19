@@ -6,7 +6,7 @@
 
 package com.btcandroid.util
 
-import dcrlibwallet.MultiWallet
+import btclibwallet.MultiWallet
 
 /**
  * Created by collins on 2/24/18.

@@ -19,7 +19,7 @@ import com.btcandroid.extensions.show
 import com.btcandroid.extensions.toggleVisibility
 import com.btcandroid.util.CoinFormat
 import com.btcandroid.util.SnackBar
-import dcrlibwallet.Wallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.account_details.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

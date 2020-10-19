@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.btcandroid.R
 import com.btcandroid.data.Account
 import com.btcandroid.util.CoinFormat
-import dcrlibwallet.Wallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.account_picker_header.view.*
 import kotlinx.android.synthetic.main.account_picker_row.view.*
 

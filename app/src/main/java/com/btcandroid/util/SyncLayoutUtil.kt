@@ -18,7 +18,7 @@ import com.btcandroid.extensions.show
 import com.btcandroid.extensions.toggleVisibility
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import dcrlibwallet.*
+import btclibwallet.*
 import kotlinx.android.synthetic.main.fragment_overview.view.*
 import kotlinx.android.synthetic.main.multi_wallet_sync_details.view.*
 import kotlinx.android.synthetic.main.single_wallet_sync_details.view.*

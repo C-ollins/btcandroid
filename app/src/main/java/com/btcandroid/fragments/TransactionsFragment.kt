@@ -21,8 +21,8 @@ import com.btcandroid.extensions.hide
 import com.btcandroid.extensions.show
 import com.btcandroid.util.Deserializer
 import com.google.gson.GsonBuilder
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.Wallet
+import btclibwallet.Btclibwallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.single_wallet_transactions_page.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -45,7 +45,7 @@ class TransactionsFragment : BaseFragment(), AdapterView.OnItemSelectedListener,
             .create()
 
     private var newestTransactionsFirst = true
-    private var txFilter = Dcrlibwallet.TxFilterAll
+    private var txFilter = Btclibwallet.TxFilterAll
     private val availableTxTypes = ArrayList<String>()
 
     private var txTypeSortAdapter: ArrayAdapter<String>? = null
@@ -122,11 +122,11 @@ class TransactionsFragment : BaseFragment(), AdapterView.OnItemSelectedListener,
     private fun refreshAvailableTxType() = GlobalScope.launch(Dispatchers.Default) {
         availableTxTypes.clear()
 
-        val txCount = wallet!!.countTransactions(Dcrlibwallet.TxFilterAll)
-        val sentTxCount = wallet!!.countTransactions(Dcrlibwallet.TxFilterSent)
-        val receivedTxCount = wallet!!.countTransactions(Dcrlibwallet.TxFilterReceived)
-        val transferredTxCount = wallet!!.countTransactions(Dcrlibwallet.TxFilterTransferred)
-        val coinbaseTxCount = wallet!!.countTransactions(Dcrlibwallet.TxFilterCoinBase)
+        val txCount = wallet!!.countTransactions(Btclibwallet.TxFilterAll)
+        val sentTxCount = wallet!!.countTransactions(Btclibwallet.TxFilterSent)
+        val receivedTxCount = wallet!!.countTransactions(Btclibwallet.TxFilterReceived)
+        val transferredTxCount = wallet!!.countTransactions(Btclibwallet.TxFilterTransferred)
+        val coinbaseTxCount = wallet!!.countTransactions(Btclibwallet.TxFilterCoinBase)
 
         withContext(Dispatchers.Main) {
             if (context == null) {
@@ -290,10 +290,10 @@ class TransactionsFragment : BaseFragment(), AdapterView.OnItemSelectedListener,
             }
         } else {
             txFilter = when (position) {
-                0 -> Dcrlibwallet.TxFilterAll
-                1 -> Dcrlibwallet.TxFilterSent
-                2 -> Dcrlibwallet.TxFilterReceived
-                else -> Dcrlibwallet.TxFilterTransferred
+                0 -> Btclibwallet.TxFilterAll
+                1 -> Btclibwallet.TxFilterSent
+                2 -> Btclibwallet.TxFilterReceived
+                else -> Btclibwallet.TxFilterTransferred
             }
 
             loadTransactions()

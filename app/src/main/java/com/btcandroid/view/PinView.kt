@@ -25,7 +25,7 @@ import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import com.btcandroid.R
 import com.btcandroid.view.util.InputConnectionAccommodatingLatinIMETypeNullIssues
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -347,7 +347,7 @@ class PinViewUtil(val pinView: PinView, counterView: TextView?, val pinStrength:
             }
 
             if (pinStrength != null) {
-                val progress = (Dcrlibwallet.shannonEntropy(passCode) / 4) * 100
+                val progress = (Btclibwallet.shannonEntropy(passCode) / 4) * 100
                 if (progress > 70) {
                     pinStrength.progressDrawable = context.resources.getDrawable(R.drawable.password_strength_bar_strong)
                 } else {

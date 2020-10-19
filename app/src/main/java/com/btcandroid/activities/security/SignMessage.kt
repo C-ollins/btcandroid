@@ -19,8 +19,8 @@ import com.btcandroid.util.PassPromptUtil
 import com.btcandroid.util.SnackBar
 import com.btcandroid.util.Utils
 import com.btcandroid.view.util.InputHelper
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.Wallet
+import btclibwallet.Btclibwallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.activity_sign_message.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -152,7 +152,7 @@ class SignMessage : BaseActivity(), View.OnClickListener {
 
         try {
             val signature = wallet.signMessage(passphrase.toByteArray(), address, message)
-            val signatureStr = Dcrlibwallet.encodeBase64(signature)
+            val signatureStr = Btclibwallet.encodeBase64(signature)
 
             withContext(Dispatchers.Main) {
                 result_layout.show()
@@ -161,9 +161,9 @@ class SignMessage : BaseActivity(), View.OnClickListener {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            if (e.message == Dcrlibwallet.ErrInvalidPassphrase) {
+            if (e.message == Btclibwallet.ErrInvalidPassphrase) {
 
-                val err = if (wallet.privatePassphraseType == Dcrlibwallet.PassphraseTypePin) {
+                val err = if (wallet.privatePassphraseType == Btclibwallet.PassphraseTypePin) {
                     R.string.invalid_pin
                 } else {
                     R.string.invalid_password

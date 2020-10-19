@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.btcandroid.R
 import com.btcandroid.dialog.FullScreenBottomSheetDialog
 import com.google.android.material.tabs.TabLayout
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.android.synthetic.main.fragment_password_pin_dialog.*
 
 class PasswordPinDialogFragment(@StringRes var positiveButtonTitle: Int, var isSpending: Boolean, var isChange: Boolean,
@@ -105,9 +105,9 @@ class PasswordPinDialogFragment(@StringRes var positiveButtonTitle: Int, var isS
             tab_layout.touchables.forEach { it.isEnabled = false }
 
             val passphraseType = if (view_pager.currentItem == 0) {
-                Dcrlibwallet.PassphraseTypePass
+                Btclibwallet.PassphraseTypePass
             } else {
-                Dcrlibwallet.PassphraseTypePin
+                Btclibwallet.PassphraseTypePin
             }
 
             onPassphraseConfirmed(this, passphrase, passphraseType)

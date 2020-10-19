@@ -8,8 +8,8 @@ package com.btcandroid.extensions
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import dcrlibwallet.MultiWallet
-import dcrlibwallet.Wallet
+import btclibwallet.MultiWallet
+import btclibwallet.Wallet
 
 fun MultiWallet.openedWalletsList(): ArrayList<Wallet> {
     val wallets = ArrayList<Wallet>()

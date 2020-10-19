@@ -30,8 +30,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build Dcrlibwallet
-        run: ./dcrlibwallet-ci-build.sh
+      - name: Build Btclibwallet
+        run: ./btclibwallet-ci-build.sh
 
       - name: Run Android Linter
         run: ./gradlew lintTstnetDebug

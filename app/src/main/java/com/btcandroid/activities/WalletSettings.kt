@@ -18,8 +18,8 @@ import com.btcandroid.extensions.show
 import com.btcandroid.preference.ListPreference
 import com.btcandroid.preference.SwitchPreference
 import com.btcandroid.util.*
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.Wallet
+import btclibwallet.Btclibwallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.activity_wallet_settings.*
 import kotlinx.android.synthetic.main.activity_wallet_settings.view.*
 import kotlinx.coroutines.Dispatchers
@@ -50,7 +50,7 @@ class WalletSettings : BaseActivity() {
                 ChangePassUtil(this, walletID).begin()
             }
 
-            useFingerprint = SwitchPreference(this, walletID.toString() + Dcrlibwallet.UseBiometricConfigKey, spendable_fingerprint) { newValue ->
+            useFingerprint = SwitchPreference(this, walletID.toString() + Btclibwallet.UseBiometricConfigKey, spendable_fingerprint) { newValue ->
 
                 if (newValue) {
                     setupFingerprint()
@@ -63,7 +63,7 @@ class WalletSettings : BaseActivity() {
             loadFingerprintPreference()
         }
 
-        val incomingNotificationsKey = walletID.toString() + Dcrlibwallet.IncomingTxNotificationsConfigKey
+        val incomingNotificationsKey = walletID.toString() + Btclibwallet.IncomingTxNotificationsConfigKey
         setTxNotificationSummary(multiWallet!!.readInt32ConfigValueForKey(incomingNotificationsKey, Constants.DEF_TX_NOTIFICATION))
         ListPreference(this, incomingNotificationsKey, Constants.DEF_TX_NOTIFICATION,
                 R.array.notification_options, incoming_transactions) {
@@ -80,7 +80,7 @@ class WalletSettings : BaseActivity() {
                         .setDialogTitle(getString(R.string.rescan_blockchain))
                         .setMessage(getString(R.string.rescan_blockchain_warning))
                         .setPositiveButton(getString(R.string.yes), DialogInterface.OnClickListener { _, _ ->
-                            wallet.reIndexTransactions()
+                            wallet.rescan()
                             SnackBar.showText(this, R.string.rescan_progress_notification)
                         })
                         .setNegativeButton(getString(R.string.no))
@@ -164,7 +164,7 @@ class WalletSettings : BaseActivity() {
                 } catch (e: Exception) {
                     e.printStackTrace()
 
-                    if (e.message == Dcrlibwallet.ErrInvalidPassphrase) {
+                    if (e.message == Btclibwallet.ErrInvalidPassphrase) {
                         if (dialog is PinPromptDialog) {
                             dialog.setProcessing(false)
                             dialog.showError()
@@ -175,7 +175,7 @@ class WalletSettings : BaseActivity() {
                     } else {
 
                         dialog?.dismiss()
-                        Dcrlibwallet.logT(op, e.message)
+                        Btclibwallet.logT(op, e.message)
                         Utils.showErrorDialog(this@WalletSettings, op + ": " + e.message)
                     }
                 }
@@ -212,9 +212,9 @@ class WalletSettings : BaseActivity() {
                 dialog.setProcessing(false)
             }
 
-            if (e.message == Dcrlibwallet.ErrInvalidPassphrase) {
+            if (e.message == Btclibwallet.ErrInvalidPassphrase) {
                 val errMessage = when (wallet.privatePassphraseType) {
-                    Dcrlibwallet.PassphraseTypePin -> R.string.invalid_pin
+                    Btclibwallet.PassphraseTypePin -> R.string.invalid_pin
                     else -> R.string.invalid_password
                 }
                 SnackBar.showError(this@WalletSettings, errMessage)

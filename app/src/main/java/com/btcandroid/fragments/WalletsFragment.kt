@@ -29,7 +29,7 @@ import com.btcandroid.dialog.InfoDialog
 import com.btcandroid.dialog.RequestNameDialog
 import com.btcandroid.util.SnackBar
 import com.btcandroid.util.Utils
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -142,7 +142,7 @@ class WalletsFragment : BaseFragment() {
                                 RequestNameDialog(R.string.wallet_name, "", true) { newName ->
                                     try {
                                         if (multiWallet!!.walletNameExists(newName)) {
-                                            return@RequestNameDialog Exception(Dcrlibwallet.ErrExist)
+                                            return@RequestNameDialog Exception(Btclibwallet.ErrExist)
                                         }
 
                                         PasswordPinDialogFragment(R.string.create, isSpending = true, isChange = false) { dialog, passphrase, passphraseType ->
@@ -199,7 +199,7 @@ class WalletsFragment : BaseFragment() {
             withContext(Dispatchers.Main) {
                 dialog.dismiss()
                 Utils.showErrorDialog(this@WalletsFragment.context!!, op + ": " + e.message)
-                Dcrlibwallet.logT(op, e.message)
+                Btclibwallet.logT(op, e.message)
             }
         }
     }

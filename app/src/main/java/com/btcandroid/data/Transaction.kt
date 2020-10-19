@@ -12,7 +12,7 @@ import com.btcandroid.util.Utils
 import com.btcandroid.util.WalletData
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import java.io.Serializable
 import java.math.BigDecimal
 
@@ -58,7 +58,7 @@ class Transaction : Serializable {
 
     val confirmations: Int
         get() {
-            return if (height == Dcrlibwallet.BlockHeightInvalid) {
+            return if (height == Btclibwallet.BlockHeightInvalid) {
                 0
             } else {
                 (WalletData.multiWallet!!.bestBlock.height - height) + 1
@@ -82,8 +82,8 @@ class Transaction : Serializable {
     val iconResource: Int
         get() {
             var res = when (direction) {
-                Dcrlibwallet.TxDirectionSent -> R.drawable.ic_send
-                Dcrlibwallet.TxDirectionReceived -> R.drawable.ic_receive
+                Btclibwallet.TxDirectionSent -> R.drawable.ic_send
+                Btclibwallet.TxDirectionReceived -> R.drawable.ic_receive
                 else -> R.drawable.ic_wallet
             }
 

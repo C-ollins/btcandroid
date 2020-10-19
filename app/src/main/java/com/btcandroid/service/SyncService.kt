@@ -16,7 +16,7 @@ import androidx.core.app.NotificationCompat
 import com.btcandroid.R
 import com.btcandroid.util.TimeUtils
 import com.btcandroid.util.WalletData
-import dcrlibwallet.*
+import btclibwallet.*
 
 const val NOTIFICATION_ID = 4
 const val TAG = "SyncService"

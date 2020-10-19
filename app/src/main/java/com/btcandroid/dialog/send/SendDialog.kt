@@ -30,9 +30,9 @@ import com.btcandroid.dialog.InfoDialog
 import com.btcandroid.util.*
 import com.btcandroid.view.util.AccountCustomSpinner
 import com.btcandroid.view.util.SCAN_QR_REQUEST_CODE
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.TxAuthor
-import dcrlibwallet.TxFeeAndSize
+import btclibwallet.Btclibwallet
+import btclibwallet.TxAuthor
+import btclibwallet.TxFeeAndSize
 import kotlinx.android.synthetic.main.fee_layout.*
 import kotlinx.android.synthetic.main.send_page_amount_card.*
 import kotlinx.android.synthetic.main.send_page_sheet.*
@@ -350,7 +350,7 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
         val amount = amountHelper.btcAmount
         var amountAtom = when {
             sendMax -> 0
-            else -> Dcrlibwallet.amountAtom(amount!!.toDouble())
+            else -> Btclibwallet.amountAtom(amount!!.toDouble())
         }
 
         val selectedAccount = sourceAccountSpinner.selectedAccount!!
@@ -391,8 +391,8 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
             feeSpanned = SpannableString(getString(R.string.x_btc, feeString))
             totalCostSpanned = SpannableString(getString(R.string.x_btc, totalCostString))
         } else {
-            val feeCoin = Dcrlibwallet.amountCoin(feeAtom)
-            val totalCostCoin = Dcrlibwallet.amountCoin(totalCostAtom)
+            val feeCoin = Btclibwallet.amountCoin(feeAtom)
+            val totalCostCoin = Btclibwallet.amountCoin(totalCostAtom)
 
             val feeUSD = dcrToFormattedUSD(amountHelper.exchangeDecimal, feeCoin)
             val totalCostUSD = dcrToFormattedUSD(amountHelper.exchangeDecimal, totalCostCoin, 2)

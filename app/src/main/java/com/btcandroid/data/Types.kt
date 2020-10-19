@@ -58,7 +58,7 @@ class Account : Serializable {
         get() = WalletData.multiWallet!!.walletWithID(walletID).hdPathForAccount(accountNumber)
 
     companion object {
-        fun from(acc: dcrlibwallet.Account): Account {
+        fun from(acc: btclibwallet.Account): Account {
             val account = Account()
             return account.apply {
                 walletID = acc.walletID
@@ -103,7 +103,7 @@ class Balance : Serializable {
     var unConfirmed: Long = 0
 
     companion object {
-        fun from(bal: dcrlibwallet.Balance): Balance {
+        fun from(bal: btclibwallet.Balance): Balance {
             val balance = Balance()
             return balance.apply {
                 spendable = bal.spendable

@@ -28,7 +28,7 @@ import com.btcandroid.fragments.WALLET_SETTINGS_REQUEST_CODE
 import com.btcandroid.util.CoinFormat
 import com.btcandroid.util.SnackBar
 import com.btcandroid.util.WalletData
-import dcrlibwallet.Wallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.wallet_row.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

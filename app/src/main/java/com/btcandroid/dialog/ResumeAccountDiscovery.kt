@@ -23,8 +23,8 @@ import com.btcandroid.view.PinViewUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.Wallet
+import btclibwallet.Btclibwallet
+import btclibwallet.Wallet
 import kotlinx.android.synthetic.main.account_discovery_sheet.*
 import kotlinx.coroutines.*
 
@@ -84,7 +84,7 @@ class ResumeAccountDiscovery : BottomSheetDialogFragment() {
 
         pinViewUtil = PinViewUtil(resume_restore_pin, null)
 
-        if (wallet!!.privatePassphraseType == Dcrlibwallet.PassphraseTypePin) {
+        if (wallet!!.privatePassphraseType == Btclibwallet.PassphraseTypePin) {
             resume_restore_pass.hide()
             resume_restore_pin.show()
 
@@ -141,9 +141,9 @@ class ResumeAccountDiscovery : BottomSheetDialogFragment() {
         } catch (e: Exception) {
             e.printStackTrace()
 
-            if (e.message!! == Dcrlibwallet.ErrInvalidPassphrase) {
+            if (e.message!! == Btclibwallet.ErrInvalidPassphrase) {
 
-                val error = if (wallet!!.privatePassphraseType == Dcrlibwallet.PassphraseTypePass) {
+                val error = if (wallet!!.privatePassphraseType == Btclibwallet.PassphraseTypePass) {
                     getString(R.string.invalid_password)
                 } else {
                     getString(R.string.invalid_pin)
@@ -168,7 +168,7 @@ class ResumeAccountDiscovery : BottomSheetDialogFragment() {
                 withContext(Dispatchers.Main) {
                     val op = this@ResumeAccountDiscovery.javaClass.name + ": unlockWallet"
                     Utils.showErrorDialog(context!!, op + ": " + e.message)
-                    Dcrlibwallet.logT(op, e.message)
+                    Btclibwallet.logT(op, e.message)
                 }
             }
 

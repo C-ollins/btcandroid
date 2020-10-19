@@ -24,8 +24,8 @@ import com.btcandroid.R
 import com.btcandroid.data.Constants
 import com.btcandroid.data.Transaction
 import com.btcandroid.dialog.InfoDialog
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.Wallet
+import btclibwallet.Btclibwallet
+import btclibwallet.Wallet
 import java.io.*
 import java.util.*
 
@@ -108,17 +108,17 @@ object Utils {
 
     fun translateError(ctx: Context, e: Exception): String {
         return when (e.message) {
-            Dcrlibwallet.ErrInsufficientBalance -> {
+            Btclibwallet.ErrInsufficientBalance -> {
                 if (!WalletData.instance.synced) {
                     ctx.getString(R.string.not_enough_funds_synced)
                 } else ctx.getString(R.string.not_enough_funds)
             }
-            Dcrlibwallet.ErrEmptySeed -> ctx.getString(R.string.empty_seed)
-            Dcrlibwallet.ErrNotConnected -> ctx.getString(R.string.not_connected)
-            Dcrlibwallet.ErrPassphraseRequired -> ctx.getString(R.string.passphrase_required)
-            Dcrlibwallet.ErrWalletNotLoaded -> ctx.getString(R.string.wallet_not_loaded)
-            Dcrlibwallet.ErrInvalidPassphrase -> ctx.getString(R.string.invalid_passphrase)
-            Dcrlibwallet.ErrNoPeers -> ctx.getString(R.string.err_no_peers)
+            Btclibwallet.ErrEmptySeed -> ctx.getString(R.string.empty_seed)
+            Btclibwallet.ErrNotConnected -> ctx.getString(R.string.not_connected)
+            Btclibwallet.ErrPassphraseRequired -> ctx.getString(R.string.passphrase_required)
+            Btclibwallet.ErrWalletNotLoaded -> ctx.getString(R.string.wallet_not_loaded)
+            Btclibwallet.ErrInvalidPassphrase -> ctx.getString(R.string.invalid_passphrase)
+            Btclibwallet.ErrNoPeers -> ctx.getString(R.string.err_no_peers)
             else -> e.message!!
         }
     }
@@ -170,7 +170,7 @@ object Utils {
             context.getString(R.string.new_transaction)
         }
 
-        val incomingNotificationsKey = transaction.walletID.toString() + Dcrlibwallet.IncomingTxNotificationsConfigKey
+        val incomingNotificationsKey = transaction.walletID.toString() + Btclibwallet.IncomingTxNotificationsConfigKey
         val incomingNotificationConfig = multiWallet.readInt32ConfigValueForKey(incomingNotificationsKey, Constants.DEF_TX_NOTIFICATION)
 
         val notificationSound = when (incomingNotificationConfig) {

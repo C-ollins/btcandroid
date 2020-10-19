@@ -26,7 +26,7 @@ import com.btcandroid.extensions.toggleVisibility
 import com.btcandroid.util.CoinFormat
 import com.btcandroid.util.SnackBar
 import com.btcandroid.util.Utils
-import dcrlibwallet.Dcrlibwallet
+import btclibwallet.Btclibwallet
 import kotlinx.android.synthetic.main.transaction_details.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -49,7 +49,7 @@ class TransactionDetailsDialog(val transaction: Transaction) : FullScreenBottomS
 
         tx_details_icon.setImageResource(transaction.iconResource)
 
-        val txAmount = if (transaction.direction == Dcrlibwallet.TxDirectionSent && transaction.type == Dcrlibwallet.TxTypeRegular) {
+        val txAmount = if (transaction.direction == Btclibwallet.TxDirectionSent && transaction.type == Btclibwallet.TxTypeRegular) {
             -transaction.amount
         } else {
             transaction.amount
@@ -75,9 +75,9 @@ class TransactionDetailsDialog(val transaction: Transaction) : FullScreenBottomS
         tx_details_fee.text = getString(R.string.x_btc, CoinFormat.formatDecred(transaction.fee))
 
         when (transaction.type) {
-            Dcrlibwallet.TxTypeRegular -> {
+            Btclibwallet.TxTypeRegular -> {
                 when (transaction.direction) {
-                    Dcrlibwallet.TxDirectionSent -> {
+                    Btclibwallet.TxDirectionSent -> {
                         tx_source_row.show()
                         tx_details_source.text = getSourceAccount()
 
@@ -92,7 +92,7 @@ class TransactionDetailsDialog(val transaction: Transaction) : FullScreenBottomS
 
                         toolbar_title.setText(R.string.sent)
                     }
-                    Dcrlibwallet.TxDirectionReceived -> {
+                    Btclibwallet.TxDirectionReceived -> {
                         tx_source_row.show()
                         tx_details_source.setText(R.string.external)
 
@@ -131,12 +131,12 @@ class TransactionDetailsDialog(val transaction: Transaction) : FullScreenBottomS
     }
 
     private fun setConfirmationStatus() {
-        val spendUnconfirmedFunds = multiWallet.readBoolConfigValueForKey(Dcrlibwallet.SpendUnconfirmedConfigKey, Constants.DEF_SPEND_UNCONFIRMED)
+        val spendUnconfirmedFunds = multiWallet.readBoolConfigValueForKey(Btclibwallet.SpendUnconfirmedConfigKey, Constants.DEF_SPEND_UNCONFIRMED)
 
         status_icon.setImageResource(transaction.getConfirmationIconRes(spendUnconfirmedFunds))
         tv_confirmations.setTextColor(context!!.getColor(R.color.blueGraySecondTextColor))
 
-        if (transaction.confirmations >= Dcrlibwallet.DefaultRequiredConfirmations || spendUnconfirmedFunds) {
+        if (transaction.confirmations >= Btclibwallet.DefaultRequiredConfirmations || spendUnconfirmedFunds) {
             tv_confirmations.text = HtmlCompat.fromHtml(getString(R.string.tx_details_confirmations, transaction.confirmations), 0)
 
             tx_block_row.show()

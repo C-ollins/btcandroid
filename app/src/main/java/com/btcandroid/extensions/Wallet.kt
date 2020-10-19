@@ -10,8 +10,8 @@ import com.btcandroid.data.Account
 import com.btcandroid.data.Constants
 import com.btcandroid.data.parseAccounts
 import com.btcandroid.util.WalletData
-import dcrlibwallet.Dcrlibwallet
-import dcrlibwallet.Wallet
+import btclibwallet.Btclibwallet
+import btclibwallet.Wallet
 
 fun Wallet.walletAccounts(): ArrayList<Account> {
     return parseAccounts(this.accounts).accounts

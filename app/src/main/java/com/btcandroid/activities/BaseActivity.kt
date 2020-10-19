@@ -18,7 +18,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.btcandroid.util.WalletData
-import dcrlibwallet.MultiWallet
+import btclibwallet.MultiWallet
 
 @SuppressLint("Registered")
 open class BaseActivity : AppCompatActivity() {
