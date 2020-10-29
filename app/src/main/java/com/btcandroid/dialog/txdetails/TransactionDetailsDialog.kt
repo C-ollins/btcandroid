@@ -102,7 +102,7 @@ class TransactionDetailsDialog(val transaction: Transaction) : FullScreenBottomS
                         tx_details_dest.setTextColor(resources.getColor(R.color.darkBlueTextColor))
 
                         tx_dest_wallet_badge.text = wallet.name
-                        tx_dest_wallet_badge.show()
+//                        tx_dest_wallet_badge.show()
 
                         toolbar_title.setText(R.string.received)
                     }
@@ -262,7 +262,7 @@ class TransactionDetailsDialog(val transaction: Transaction) : FullScreenBottomS
             }
             R.id.rebroadcast_button -> {
 
-                if (!multiWallet.isConnectedToDecredNetwork) {
+                if (!multiWallet.isConnectedToBitcoinNetwork) {
                     SnackBar.showError(context!!, R.string.not_connected)
                     return
                 }

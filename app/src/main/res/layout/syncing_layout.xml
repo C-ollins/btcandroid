@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:includeFontPadding="false"
-                    android:text="@string/step_1_3"
+                    android:text="@string/step_1_2"
                     android:textColor="#596d81"
                     android:textSize="@dimen/edit_text_size_14"
                     app:fontFamily="@font/source_sans_pro" />

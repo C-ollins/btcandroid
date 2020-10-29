@@ -10,7 +10,6 @@ import android.content.Context
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.text.HtmlCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.btcandroid.R
 import com.btcandroid.extensions.hide
 import com.btcandroid.extensions.isShowing
@@ -44,7 +43,7 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
         multiWallet.removeSyncProgressListener(this.javaClass.name)
         multiWallet.addSyncProgressListener(this, this.javaClass.name)
 
-        if (multiWallet.isSyncing) {
+        if (multiWallet.isSyncing || multiWallet.isRescanning) {
             displaySyncingLayout()
         } else {
             displaySyncedUnsynced()
@@ -110,28 +109,22 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
         syncLayout.show_details.text = context.getString(R.string.show_details)
 
         syncLayout.tv_steps_title.text = context.getString(R.string.starting_up)
-        syncLayout.tv_steps.text = context.getString(R.string.step_1_3)
+        syncLayout.tv_steps.text = context.getString(R.string.step_1_2)
 
         syncLayout.syncing_layout_wallet_name.hide()
 
         // connected peers count
         syncLayout.tv_syncing_layout_connected_peer.text = multiWallet.connectedPeers().toString()
 
-        // single wallet setup
-        if (multiWallet.openedWalletsCount() == 1) {
-            showSyncVerboseExtras()
+        showSyncVerboseExtras()
 
-            // block headers fetched
-            syncLayout.tv_block_header_fetched.setText(R.string.block_header_fetched)
-            syncLayout.tv_fetch_discover_scan_count.text = "0"
+        // cfilters fetched
+        syncLayout.tv_cfilters_fetched.setText(R.string.cfilters_fetched)
+        syncLayout.tv_fetch_count.text = "0"
 
-            // syncing progress
-            syncLayout.tv_progress.setText(R.string.syncing_progress)
-            syncLayout.tv_days.text = null
-        } else {
-            showMultiWalletSyncLayout()
-            loadOpenedWallets()
-        }
+        // syncing progress
+        syncLayout.tv_progress.setText(R.string.syncing_progress)
+        syncLayout.tv_days.text = null
     }
 
     private fun startupBlockUpdate() = GlobalScope.launch(Dispatchers.Default) {
@@ -220,7 +213,12 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
         syncLayout.tv_online_offline_status.setText(R.string.online)
         syncLayout.view_online_offline_status.setBackgroundResource(R.drawable.online_dot)
 
-        syncLayout.syncing_layout.syncing_layout_status.text =   context.getString(R.string.syncing_state)
+        if(multiWallet.isRescanning){
+            syncLayout.syncing_layout.syncing_layout_status.text =   context.getString(R.string.rescanning_blocks_ellipsis)
+        }else {
+            syncLayout.syncing_layout.syncing_layout_status.text =   context.getString(R.string.syncing_state)
+        }
+
     }
 
     private fun showSyncVerboseExtras() {
@@ -233,11 +231,6 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
 
         syncLayout.sync_verbose.hide()
         syncLayout.multi_wallet_sync_verbose.hide()
-    }
-
-    private fun showMultiWalletSyncLayout() {
-        hideSyncVerboseExtras()
-        syncLayout.multi_wallet_sync_verbose.show()
     }
 
     private fun publishSyncProgress(syncProgress: GeneralSyncProgress) = GlobalScope.launch(Dispatchers.Main) {
@@ -256,12 +249,20 @@ class SyncLayoutUtil(private val syncLayout: LinearLayout, restartSyncProcess: (
 
     override fun onCFiltersFetchProgress(p0: CFiltersFetchProgressReport) {
         println("Cfl progress")
+        publishSyncProgress(p0.generalSyncProgress)
 
-//        val percentage = (p0.fetchedCfiltlers / p0.totalCFitlersToFetch) * 100
-//        val g = GeneralSyncProgress()
-//        g.totalSyncProgress = percentage
-//        g.totalTimeRemainingSeconds = 3600
-//        publishSyncProgress(g)
+        GlobalScope.launch(Dispatchers.Main) {
+
+            syncLayout.tv_steps.text = context.getString(R.string.step_1_2)
+
+            syncLayout.tv_cfilters_fetched.setText(R.string.cfilters_fetched)
+            syncLayout.tv_fetch_count.text = context.getString(R.string.cfilters_fetched_count,
+                    p0.fetchedCFilters, p0.fetchedCFilters + p0.totalCFiltersToFetch)
+
+            syncLayout.tv_progress.setText(R.string.syncing_progress)
+            val lastHeaderRelativeTime = (System.currentTimeMillis() / 1000) - p0.lastCFiltersTimestamp
+            syncLayout.tv_days.text = TimeUtils.getDaysBehind(lastHeaderRelativeTime, context)
+        }
     }
 
     override fun onSyncCanceled(willRestart: Boolean) {

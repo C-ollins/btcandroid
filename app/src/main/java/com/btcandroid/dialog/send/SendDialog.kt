@@ -125,18 +125,6 @@ class SendDialog(val fragmentActivity: FragmentActivity, dismissListener: Dialog
         }
 
         clearEstimates()
-
-
-        val title = PassPromptTitle(R.string.confirm_to_change, R.string.confirm_to_change, R.string.confirm_to_change)
-        var passPromptUtil: PassPromptUtil? = null
-        passPromptUtil = PassPromptUtil(fragmentActivity, 1, title, false) { dialog, pass ->
-            if (pass != null){
-            multiWallet.walletWithID(1).unlockWallet(pass.toByteArray())
-            }
-            return@PassPromptUtil true
-        }
-
-        passPromptUtil.show()
     }
 
     override fun onTxOrBalanceUpdateRequired(walletID: Long?) {

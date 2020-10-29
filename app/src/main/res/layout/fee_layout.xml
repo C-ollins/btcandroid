@@ -72,7 +72,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_block_header_fetched"
                 android:includeFontPadding="false"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -83,14 +82,13 @@
                 app:fontFamily="@font/source_sans_pro" />
 
             <TextView
-                android:id="@+id/tv_fetch_discover_scan_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
                 android:textColor="#091440"
                 android:textSize="16sp"
                 app:fontFamily="@font/source_sans_pro"
-                android:text="≈ 10 mins (2 blocks)" />
+                android:text="≈ 20 mins (2 blocks)" />
 
         </LinearLayout>
 
@@ -118,7 +116,7 @@
                 android:includeFontPadding="false"
                 android:textSize="16sp"
                 app:fontFamily="@font/source_sans_pro"
-                android:text="0.0001 DCR/byte" />
+                android:text="0.0001 BTC/byte" />
 
         </LinearLayout>
 

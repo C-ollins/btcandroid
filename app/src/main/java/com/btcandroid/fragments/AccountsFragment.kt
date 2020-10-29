@@ -40,7 +40,6 @@ class WalletsFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         adapter = AccountsAdapter(context!!, 1)
-
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
         recyclerView.isNestedScrollingEnabled = false

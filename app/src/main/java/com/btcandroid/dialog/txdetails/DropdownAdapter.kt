@@ -34,7 +34,7 @@ class DropdownAdapter(private val items: Array<DropDownItem>) : RecyclerView.Ada
         holder.itemView.address.text = items[position].address
         if (items[position].badge.isNotBlank()) {
             holder.itemView.badge.text = items[position].badge
-            holder.itemView.badge.show()
+//            holder.itemView.badge.show()
         }
 
         holder.itemView.address.setOnClickListener {

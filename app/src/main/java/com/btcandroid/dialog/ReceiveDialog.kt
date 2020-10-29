@@ -65,11 +65,11 @@ class ReceiveDialog(dismissListener: DialogInterface.OnDismissListener) : FullSc
         qr_image.setOnClickListener { copyAddress() }
 
         sourceAccountSpinner = AccountCustomSpinner(activity!!.supportFragmentManager, source_account_spinner, true, R.string.dest_account_picker_title) {
-            setAddress(it.getCurrentAddress())
+            GlobalScope.launch(Dispatchers.Default){
+                setAddress(it.getCurrentAddress())
+            }
             return@AccountCustomSpinner Unit
         }
-
-        setAddress(wallet.currentAddress(0))
     }
 
     override fun onTxOrBalanceUpdateRequired(walletID: Long?) {
@@ -135,8 +135,8 @@ class ReceiveDialog(dismissListener: DialogInterface.OnDismissListener) : FullSc
         return overlay
     }
 
-    private fun setAddress(address: String) = GlobalScope.launch(Dispatchers.Main) {
-        tv_address.text = address
+    private fun setAddress(address: String) = GlobalScope.launch(Dispatchers.Default) {
+
 
         // Generate QR Code
         val barcodeEncoder = BarcodeEncoder()
@@ -145,7 +145,10 @@ class ReceiveDialog(dismissListener: DialogInterface.OnDismissListener) : FullSc
 
         generatedQR = overlayLogo(generatedQR)
 
-        qr_image.setImageBitmap(generatedQR)
+        withContext(Dispatchers.Main) {
+            tv_address.text = address
+            qr_image.setImageBitmap(generatedQR)
+        }
 
         // generate URI
         withContext(Dispatchers.IO) {

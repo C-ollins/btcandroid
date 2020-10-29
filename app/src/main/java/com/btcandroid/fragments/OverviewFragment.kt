@@ -42,7 +42,7 @@ const val MAX_TRANSACTIONS = 3
 class OverviewFragment : BaseFragment(), ViewTreeObserver.OnScrollChangedListener {
 
     companion object {
-        private var closedBackupWarning = false
+        private var closedBackupWarning = true //TODO
         const val FRAGMENT_POSITION = 0
 
         // Tx hash received during this session is saved here.

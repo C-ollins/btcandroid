@@ -80,7 +80,7 @@ class WalletSettings : BaseActivity() {
                         .setDialogTitle(getString(R.string.rescan_blockchain))
                         .setMessage(getString(R.string.rescan_blockchain_warning))
                         .setPositiveButton(getString(R.string.yes), DialogInterface.OnClickListener { _, _ ->
-                            wallet.rescan()
+//                            wallet.rescan()
                             SnackBar.showText(this, R.string.rescan_progress_notification)
                         })
                         .setNegativeButton(getString(R.string.no))
@@ -91,7 +91,7 @@ class WalletSettings : BaseActivity() {
 
         remove_wallet.setOnClickListener {
 
-            if (multiWallet!!.isConnectedToDecredNetwork) {
+            if (multiWallet!!.isConnectedToBitcoinNetwork) {
                 SnackBar.showError(this, R.string.disconnect_delete_wallet)
                 return@setOnClickListener
             }

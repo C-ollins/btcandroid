@@ -323,7 +323,7 @@
     <string name="connect">Connecter</string>
     <string name="show_details">Montrer les détails</string>
     <string name="hide_details">Masquer les détails</string>
-    <string name="block_header_fetched">Entête de bloc récupéré</string>
+    <string name="cfilters_fetched">Entête de bloc récupéré</string>
     <string name="step_1_3" tools:ignore="TypographyFractions">Étape 1/3</string>
     <string name="step_2_3">Étape 2/3</string>
     <string name="step_2_2">Étape 2/2</string>
@@ -335,7 +335,7 @@
     <string name="syncing_progress">Synchronisation en cours</string>
     <string name="percentage">%1$d%%</string>
     <string name="syncing_state">Synchronisation…</string>
-    <string name="block_header_fetched_count">%1$d de %2$d</string>
+    <string name="cfilters_fetched_count">%1$d de %2$d</string>
     <string name="blocks_left">%1$d blocs restants</string>
     <string name="synced">Synchronisé</string>
 
